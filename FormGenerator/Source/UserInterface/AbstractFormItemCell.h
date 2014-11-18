@@ -18,16 +18,18 @@
 @property (nonatomic, weak) IBOutlet UILabel * lblDescription;
 
 @property (nonatomic, weak) IBOutlet MessageView * errorView;
-@property (nonatomic, strong) UIButton * validationSign;
+@property (nonatomic, weak) IBOutlet UIButton * validationSign;
 @property (nonatomic) NSString * currentErrorMessage;
 
-@property (nonatomic, weak)   IBOutlet NSLayoutConstraint * cnstrcontent2Top;
+@property (nonatomic, weak)   IBOutlet NSLayoutConstraint * cnstrSignW;
+@property (nonatomic, weak)   IBOutlet NSLayoutConstraint * cnstrSignH;
 @property (nonatomic, weak)   IBOutlet NSLayoutConstraint * cnstrTitle2Left;
-@property (nonatomic, weak) IBOutlet UIButton * btnHelpInfo;
+@property (nonatomic, weak)   IBOutlet UIButton * btnHelpInfo;
 @property (nonatomic, weak)   IBOutlet NSLayoutConstraint * cnstrRightEnd2Right;
+@property (nonatomic) BOOL valid;
 @property float leftConstraintValue;
 
 - (IBAction)helpInfo:(id)sender;
-
+- (IBAction)onSignTap:(id)sender;
 @end
 

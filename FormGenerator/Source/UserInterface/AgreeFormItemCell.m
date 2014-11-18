@@ -25,7 +25,7 @@
 }
 
 - (IBAction)switched:(id)sender {
-    [self.delegate cellValueChanged:self];
+    [self.delegate cellValueChanged:self validationRequired:YES];
 }
 
 - (NSDictionary *)keyedValue {

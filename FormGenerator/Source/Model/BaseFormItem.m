@@ -34,13 +34,16 @@
 @synthesize parentKey;
 @synthesize key;
 @synthesize children;
-
+@synthesize valid;
+@synthesize errorMessage;
 - (id)init {
     self = [super init];
     if (self) {
         // value is useful param when you have array of form items as a data source of table view
         self.storedValue = nil;
         self.storedValues = [NSMutableArray new];
+        self.valid = YES;
+        self.errorMessage = nil;
         // признак того что если данный параметр присутствует и он "true", поле не обязательно к заполнению ,т.е. может остаться пустым. Если не указано - по умолчанию false
     }
     return self;

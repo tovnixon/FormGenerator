@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="jnV-rH-9oS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="jnV-rH-9oS">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -236,7 +236,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xme-zz-IlQ" userLabel="Rigth">
-                                            <rect key="frame" x="304" y="27.5" width="456" height="32"/>
+                                            <rect key="frame" x="304" y="28" width="456" height="32"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="sfsdf" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kjl-EU-Wtp">
                                                     <rect key="frame" x="8" y="4" width="428" height="26"/>
@@ -266,7 +266,7 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KLc-cK-PJ7" userLabel="Left">
-                                            <rect key="frame" x="0.0" y="27.5" width="304" height="32"/>
+                                            <rect key="frame" x="0.0" y="28" width="304" height="32"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Textfield" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="276" translatesAutoresizingMaskIntoConstraints="NO" id="ILg-g0-bGx" userLabel="Title">
                                                     <rect key="frame" x="20" y="4" width="276" height="26"/>
@@ -275,10 +275,10 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="ILg-g0-bGx" firstAttribute="leading" secondItem="KLc-cK-PJ7" secondAttribute="leading" constant="20" id="OPC-IT-GHb"/>
                                                 <constraint firstAttribute="trailing" secondItem="ILg-g0-bGx" secondAttribute="trailing" constant="8" id="P6d-MU-Gib"/>
                                                 <constraint firstAttribute="bottom" secondItem="ILg-g0-bGx" secondAttribute="bottom" constant="2" id="W8K-Ky-ZZK"/>
                                                 <constraint firstItem="ILg-g0-bGx" firstAttribute="top" secondItem="KLc-cK-PJ7" secondAttribute="top" constant="4" id="cym-p2-NMl"/>
-                                                <constraint firstItem="ILg-g0-bGx" firstAttribute="leading" secondItem="KLc-cK-PJ7" secondAttribute="leading" constant="20" id="dVI-U1-XQa"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="720" translatesAutoresizingMaskIntoConstraints="NO" id="Swe-qN-6a7" userLabel="Description">
@@ -287,10 +287,21 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LQJ-1g-bTg" userLabel="Sign">
+                                            <rect key="frame" x="8" y="36" width="22" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="vc5-Sh-nN0"/>
+                                                <constraint firstAttribute="width" constant="22" id="xwq-md-jJw"/>
+                                            </constraints>
+                                            <state key="normal" image="icoError7"/>
+                                            <connections>
+                                                <action selector="onSignTap:" destination="kyb-lv-4qM" eventType="touchUpInside" id="je9-KH-uF9"/>
+                                            </connections>
+                                        </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Tf-0S-bCn" userLabel="Info" customClass="MessageView">
                                             <rect key="frame" x="8" y="8" width="752" height="20"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="8Va-uD-lDh">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info (validation or help)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="42" translatesAutoresizingMaskIntoConstraints="NO" id="8Va-uD-lDh">
                                                     <rect key="frame" x="40" y="0.0" width="692" height="20"/>
                                                     <gestureRecognizers/>
                                                     <constraints>
@@ -318,7 +329,9 @@
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="xme-zz-IlQ" secondAttribute="trailing" id="6cy-ev-SNY"/>
                                         <constraint firstItem="xme-zz-IlQ" firstAttribute="top" secondItem="2Tf-0S-bCn" secondAttribute="bottom" id="JFe-eW-5Mq"/>
+                                        <constraint firstAttribute="centerY" secondItem="LQJ-1g-bTg" secondAttribute="centerY" constant="3.75" id="K59-uX-MRN"/>
                                         <constraint firstItem="KLc-cK-PJ7" firstAttribute="top" secondItem="2Tf-0S-bCn" secondAttribute="bottom" id="Mey-rE-cAj"/>
+                                        <constraint firstItem="LQJ-1g-bTg" firstAttribute="leading" secondItem="2Uj-8D-k50" secondAttribute="leadingMargin" id="PLd-mh-tJA"/>
                                         <constraint firstItem="2Tf-0S-bCn" firstAttribute="top" secondItem="2Uj-8D-k50" secondAttribute="topMargin" id="eez-ks-5Ft"/>
                                         <constraint firstItem="xme-zz-IlQ" firstAttribute="top" secondItem="KLc-cK-PJ7" secondAttribute="top" id="jlc-ui-TpS"/>
                                         <constraint firstItem="Swe-qN-6a7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xme-zz-IlQ" secondAttribute="bottom" constant="2" id="mA9-KT-J1B"/>
@@ -336,14 +349,16 @@
                                 <connections>
                                     <outlet property="btnHelpInfo" destination="LIN-Vf-stz" id="Txj-JI-Kid"/>
                                     <outlet property="cnstrRightEnd2Right" destination="YsY-FX-iFk" id="DOs-It-McQ"/>
-                                    <outlet property="cnstrTitle2Left" destination="dVI-U1-XQa" id="T7T-Zu-Vx6"/>
-                                    <outlet property="cnstrcontent2Top" destination="cym-p2-NMl" id="S0F-8C-BbT"/>
+                                    <outlet property="cnstrSignH" destination="vc5-Sh-nN0" id="efd-Pg-BmO"/>
+                                    <outlet property="cnstrSignW" destination="xwq-md-jJw" id="BNo-bS-Yzw"/>
+                                    <outlet property="cnstrTitle2Left" destination="OPC-IT-GHb" id="LcZ-ZT-Eaw"/>
                                     <outlet property="errorView" destination="2Tf-0S-bCn" id="57Y-c2-bvf"/>
                                     <outlet property="lblDescription" destination="Swe-qN-6a7" id="U2z-0t-afp"/>
                                     <outlet property="lblTitle" destination="ILg-g0-bGx" id="BwY-Hm-x6z"/>
                                     <outlet property="leftView" destination="KLc-cK-PJ7" id="ERj-aA-Owc"/>
                                     <outlet property="rightView" destination="xme-zz-IlQ" id="jSJ-5I-QqD"/>
                                     <outlet property="txtInput" destination="Kjl-EU-Wtp" id="fFb-lW-y9j"/>
+                                    <outlet property="validationSign" destination="LQJ-1g-bTg" id="2Y0-gT-C8L"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="GroupHeaderItemCell" rowHeight="70" id="eeO-J3-zI3" userLabel="GroupHeaderCell" customClass="GroupHeaderItemCell">
@@ -595,7 +610,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="cnstrTitle2Left" destination="KDa-rV-Hyp" id="Utu-q0-1iw"/>
-                                    <outlet property="cnstrcontent2Top" destination="lxI-CJ-ho2" id="E1p-co-oip"/>
                                     <outlet property="lblDescription" destination="GRD-AG-3L3" id="aWz-9p-Gkw"/>
                                     <outlet property="lblTitle" destination="FwX-YL-PGQ" id="LpK-bf-GuI"/>
                                     <outlet property="lblValue" destination="LMd-xz-moP" id="Pig-7n-SH4"/>
@@ -676,6 +690,7 @@
     </scenes>
     <resources>
         <image name="arrow_right" width="10" height="14"/>
+        <image name="icoError7" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

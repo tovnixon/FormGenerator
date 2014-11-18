@@ -16,12 +16,12 @@
 @implementation BoolFormItemCell
 
 - (IBAction)valueChanged:(id)sender {
-    [self.delegate cellValueChanged:self];
+    [self.delegate cellValueChanged:self validationRequired:YES];
 }
 
 #pragma mark - FormItemCell delegate
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem {
-    [super configureWithFormItem:aFormItem showInfo:NO];
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
+    [super configureWithFormItem:aFormItem showInfo:NO delegate:aDelegate];
     self.switcher.enabled = !aFormItem.readonly;
     if (aFormItem.storedValue) {
         [self.switcher setOn:[aFormItem.storedValue isEqualToString:@"true"] animated:YES];

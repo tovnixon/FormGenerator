@@ -10,8 +10,8 @@
 #import "FormItemProtocol.h"
 @implementation TextAreaFormItemCell
 #pragma mark - FormItemCell delegate
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem {
-    [super configureWithFormItem:aFormItem];
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
+    [super configureWithFormItem:aFormItem showInfo:NO delegate:aDelegate];
     self.tvInput.editable = aFormItem.readonly;
 }
 

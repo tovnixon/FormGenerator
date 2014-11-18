@@ -13,8 +13,8 @@
 @synthesize leftView;
 @synthesize rightView;
 #pragma mark - FormItemCell delegate
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem {
-    [super configureWithFormItem:aFormItem showInfo:NO];
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
+    [super configureWithFormItem:aFormItem showInfo:NO delegate:aDelegate];
     self.lblValue.text = [aFormItem defaultValue];
 }
 

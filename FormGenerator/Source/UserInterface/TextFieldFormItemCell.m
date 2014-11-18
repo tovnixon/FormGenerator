@@ -23,16 +23,16 @@
 }
 
 #pragma mark - FormItemCell delegate
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem {
-    [super configureWithFormItem:aFormItem showInfo:NO];
+
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
+    [super configureWithFormItem:aFormItem showInfo:shouldShow delegate:aDelegate];
     self.txtInput.text = [aFormItem storedValue] ? [aFormItem storedValue] : [aFormItem defaultValue];
-    [self setNeedsUpdateConstraints];
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
 }
 
 - (NSDictionary *)keyedValue {
-    return @{kValidationKeyKey : [self bindingKey], kValidationValueKey : self.txtInput.text};
+    return @{kValidationKeyKey : [self bindingKey],
+             kValidationValueKey : self.txtInput.text,
+             kIsValidKey : [NSNumber numberWithBool:self.valid]};
 }
 
 - (void)updateValidationInfo:(NSString *)message valid:(BOOL)isValid {
@@ -48,6 +48,6 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    [self.delegate cellValueChanged:self];
+    [self.delegate cellValueChanged:self validationRequired:YES];
 }
 @end

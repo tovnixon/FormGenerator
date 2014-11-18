@@ -25,7 +25,7 @@
 @property (nonatomic, copy) NSString * submitTitle;
 @property (nonatomic, strong) NSMutableDictionary * cellClasses;
 @property (nonatomic, strong) NSArray * items;
-@property (nonatomic, strong) NSMutableArray * itemsWithInfo;
+@property (nonatomic, strong) NSMutableSet * itemsWithInfo;
 @property (nonatomic) FormValidator * validator;
 @property (nonatomic) FormConfigurator * configurator;
 @end
@@ -36,7 +36,7 @@
     self = [super init];
     if (self) {
         self.cellClasses = [NSMutableDictionary new];
-        self.itemsWithInfo = [@[] mutableCopy];
+        self.itemsWithInfo = [NSMutableSet new];
         if ([aForm conformsToProtocol:@protocol(FormProtocol)]) {
             self.cancelTitle = aForm.cancelButton;
             self.submitTitle = aForm.submitButton;
@@ -82,12 +82,18 @@
 }
 
 #pragma mark - FormItemCell delegate
-- (void)cellValueChanged:(id<FormItemCellProtocol>)cell {
+- (void)cellValueChanged:(id<FormItemCellProtocol>)cell validationRequired:(BOOL)shouldValidate {
     id <FormItemProtocol> item = [self itemByKey:[cell dataSourceKey]];
     //set value from user input to model
     NSDictionary * dict = [cell keyedValue];
     item.storedValue = [dict valueForKey:kValidationValueKey];
-    [self validateCell:cell];
+    NSNumber * valid = [dict valueForKey:kIsValidKey];
+    item.valid = [valid boolValue];
+    
+    if (shouldValidate) {
+        [self validateCell:cell];
+    } else {
+    }
     
     if (item.type == FormItemTypeAgree) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"UserAgreeChangedNotification" object:nil
@@ -114,14 +120,24 @@
 #pragma mark - Validation
 - (BOOL)validateCell:(id<FormItemCellProtocol>)cell {
     __block BOOL valid = YES;
+    __block NSString * message;
     NSDictionary * dict = [cell keyedValue];
     NSLog(@"Answer: %@", dict);
     NSString * key = [dict objectForKey:kValidationKeyKey];
     NSString * value = [dict objectForKey:kValidationValueKey];
     [self.validator validateValue:value forKey:key result:^(NSString *errorMessage, BOOL success) {
-        [cell updateValidationInfo:errorMessage valid:success];
+        
+//        [cell updateValidationInfo:errorMessage valid:success];
         valid = success;
+        message = errorMessage;
     }];
+    id <FormItemProtocol> item = [self itemByKey:[cell dataSourceKey]];
+    item.valid = valid;
+    item.errorMessage = message;
+    [cell updateValidationInfo:message valid:valid];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CellHeightChangedNotification" object:nil
+                                                      userInfo:@{@"item" : cell}];
+   
     return valid;
 }
 
@@ -161,7 +177,7 @@
         [self.cellClasses setObject:sizingCell forKey:identifier];
     }
     BOOL shoulShowInfo = [self.itemsWithInfo containsObject:item];
-    [sizingCell configureWithFormItem:item showInfo:shoulShowInfo];
+    [sizingCell configureWithFormItem:item showInfo:shoulShowInfo delegate:nil];
     [sizingCell layoutIfNeeded];
 
     CGFloat height = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
@@ -190,13 +206,16 @@
     //TODO:
     //remove cell separator for group items
     BOOL shoulShowInfo = [self.itemsWithInfo containsObject:formItem];
-    [cell configureWithFormItem:formItem showInfo:shoulShowInfo];
+
+    [cell configureWithFormItem:formItem showInfo:shoulShowInfo delegate:self];
+    cell.delegate = self;
+
     if (_shouldValidateAllCells) {
-        [self validateCell:cell];
+//        [self validateCell:cell];
     }
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
-    cell.delegate = self;
+
     return cell;
 }
 

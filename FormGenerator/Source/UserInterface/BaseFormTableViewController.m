@@ -43,11 +43,19 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
 }
 
 - (void)cellHeightChanged:(NSNotification *)notification {
-    [self.tableView reloadData];
-//        NSDictionary * dict = [notification userInfo];
-//    id cell = [dict objectForKey:@"key"];
-//    NSIndexPath * ip = [self.tableView indexPathForCell:cell];
-//    [self.tableView reloadRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    [self.tableView reloadData];
+    //TODO:
+    //more optimal but i need to override layout subviews to keep validation sign on
+    
+    NSDictionary * dict = [notification userInfo];
+    UITableViewCell * cell = [dict objectForKey:@"item"];
+    NSIndexPath * ip = [self.tableView indexPathForRowAtPoint:cell.center];
+    if (ip == nil) {
+        NSLog(@"sdad");
+    }
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
 }
 
 - (void)agreeValueChanged:(NSNotification *)notification {

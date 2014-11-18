@@ -16,23 +16,15 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        UIImage * imgSign =[UIImage imageNamed:@"icoError7.png"];
-        self.validationSign = [UIButton buttonWithType:UIButtonTypeCustom];
-        _validationSign.frame = CGRectMake(0, 0, imgSign.size.width, imgSign.size.height);
-        [_validationSign setImage:imgSign forState:UIControlStateNormal];
-        [_validationSign setImage:imgSign forState:UIControlStateSelected];
-        [_validationSign setImage:imgSign forState:UIControlStateHighlighted];
-        [_validationSign addTarget:self action:@selector(onValidationSign) forControlEvents:UIControlEventTouchUpInside];
+
     }
     return self;
 }
 
 #pragma mark - FormItemCell delegate
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow {
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
     self.bindingKey = [aFormItem bindingKey];
-    
     self.dataSourceKey = [aFormItem key];
-    
     if (aFormItem.helpText.length > 0) {
         self.cnstrRightEnd2Right.constant = 50;
         self.btnHelpInfo.hidden = NO;
@@ -41,12 +33,13 @@
     }
     self.lblTitle.text = aFormItem.label;
     self.lblDescription.text = aFormItem.itemDescription;
+    self.delegate = aDelegate;
+    
     shouldShow ? [self.errorView show] : [self.errorView silentHide];
+    self.cnstrTitle2Left.constant = aFormItem.valid ? 20 : 50;
+    [self.errorView updateWithMessage:aFormItem.errorMessage];
+    self.validationSign.hidden = aFormItem.valid;
     [self forceLayout];
-}
-
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem {
-    [self configureWithFormItem:aFormItem showInfo:NO];
 }
 
 - (NSDictionary *)keyedValue {
@@ -54,42 +47,31 @@
 }
 
 #pragma mark - validation
-- (void)onValidationSign {
-    [self showErrorMessage:self.currentErrorMessage];
+- (IBAction)onSignTap:(id)sender {
+    [self showErrorMessage];
 }
 
 - (void)updateValidationInfo:(NSString *)message valid:(BOOL)isValid {
-    
-    if (isValid) {
-        self.cnstrTitle2Left.constant = 20;
-        [self forceLayout];
-        [self.validationSign removeFromSuperview];
-        self.currentErrorMessage = nil;
-        [self hideErrorMessage];
-    } else {
-        self.cnstrTitle2Left.constant = 50;
-        [self forceLayout];
-        [self addSubview:self.validationSign];
-        self.validationSign.center = CGPointMake(10 + self.validationSign.bounds.size.width, self.bounds.size.height * .5);
-        self.currentErrorMessage = message;
-    }
+    self.valid = isValid;
+    isValid ? [self hideErrorMessage] : [self showErrorMessage];
+    [self.delegate cellValueChanged:self validationRequired:NO];
     [self forceLayout];
 }
 
 - (void)hideErrorMessage {
     [self.errorView hide];
-    [self forceLayout];
 }
 
-- (void)showErrorMessage:(NSString *)message {
-    [self.errorView updateWithMessage:message];
-    [self forceLayout];
+- (void)showErrorMessage {
     [self.errorView show];
-    [self forceLayout];
-    [self.delegate heightChangedInCell:self grow:YES];
 }
 
 #pragma mark - Message view delegate 
+
+- (void)didShow {
+    [self forceLayout];
+    [self.delegate heightChangedInCell:self grow:YES];
+}
 
 - (void)didHide {
     [self forceLayout];

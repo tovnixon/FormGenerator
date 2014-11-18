@@ -17,6 +17,8 @@
 @property (nonatomic, strong) NSString * parentKey;
 @property (nonatomic, strong) NSString * key;
 @property (nonatomic, strong) NSMutableArray * children;
+@property (nonatomic) BOOL valid;
+@property (nonatomic, strong) NSString * errorMessage;
 - (NSString *)bindingKey;
 
 @end

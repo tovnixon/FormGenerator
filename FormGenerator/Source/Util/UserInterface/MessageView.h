@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @protocol MessageViewDelegate
 - (void)didHide;
+- (void)didShow;
 @end
 typedef void (^HidingCompletionBlock)();
 @interface MessageView : UIView

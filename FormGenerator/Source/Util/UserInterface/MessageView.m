@@ -8,9 +8,12 @@
 
 #import "MessageView.h"
 #import <CoreGraphics/CoreGraphics.h>
-@interface MessageView()
+@interface MessageView() {
+    BOOL _isPresented;
+}
+
 @property (nonatomic, weak) IBOutlet UILabel * lblMessage;
-@property (nonatomic, weak)   IBOutlet NSLayoutConstraint * cnstrHeight;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint * cnstrHeight;
 
 @end
 
@@ -20,6 +23,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        _isPresented = YES;
         UITapGestureRecognizer * tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap)];
         [self addGestureRecognizer:tapRecognizer];
     }
@@ -39,18 +43,28 @@
 }
 
 - (void)silentShow {
-    self.cnstrHeight.constant = 20;
-    [self layoutIfNeeded];
+    if (!_isPresented) {
+        self.cnstrHeight.constant = 20;
+        [self layoutIfNeeded];
+        _isPresented = YES;
+        [self.delegate didShow];
+    }
 }
 
 - (void)hide {
-    [self silentHide];
-    [self.delegate didHide];
+    if (_isPresented) {
+        self.cnstrHeight.constant = 0;
+        [self layoutIfNeeded];
+        _isPresented = NO;
+        [self.delegate didHide];
+    }
 }
 
 - (void)silentHide {
-    self.cnstrHeight.constant = 0;
-    [self layoutIfNeeded];
-
+    if (_isPresented) {
+        self.cnstrHeight.constant = 0;
+        [self layoutIfNeeded];
+        _isPresented = NO;
+    }
 }
 @end
