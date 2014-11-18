@@ -27,6 +27,10 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
     self.navigationItem.rightBarButtonItem.title = [self.dataSource submitTitle];
     self.navigationItem.leftBarButtonItem.title = [self.dataSource cancelTitle];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(agreeValueChanged:) name:@"UserAgreeChangedNotification" object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellHeightChanged:) name:@"CellHeightChangedNotification" object:nil];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,6 +40,14 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
 
 - (BOOL)validateValues {
     return [self.dataSource validateValuesIn:self.tableView];
+}
+
+- (void)cellHeightChanged:(NSNotification *)notification {
+    [self.tableView reloadData];
+//        NSDictionary * dict = [notification userInfo];
+//    id cell = [dict objectForKey:@"key"];
+//    NSIndexPath * ip = [self.tableView indexPathForCell:cell];
+//    [self.tableView reloadRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)agreeValueChanged:(NSNotification *)notification {
@@ -50,7 +62,7 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [self.dataSource heightForBasicCellAtIndexPath:indexPath inTableView:tableView];
-    return 120;
+//    return 120;
     
 }
 

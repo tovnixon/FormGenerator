@@ -14,6 +14,7 @@
 #import "FormItemProtocol.h"
 #import "FormValidator.h"
 #import "FormConfigurator.h"
+#import "FormDescriptionCell.h"
 
 @interface BaseFormDataSource() {
     BOOL _shouldValidateAllCells;
@@ -24,6 +25,7 @@
 @property (nonatomic, copy) NSString * submitTitle;
 @property (nonatomic, strong) NSMutableDictionary * cellClasses;
 @property (nonatomic, strong) NSArray * items;
+@property (nonatomic, strong) NSMutableArray * itemsWithInfo;
 @property (nonatomic) FormValidator * validator;
 @property (nonatomic) FormConfigurator * configurator;
 @end
@@ -34,6 +36,7 @@
     self = [super init];
     if (self) {
         self.cellClasses = [NSMutableDictionary new];
+        self.itemsWithInfo = [@[] mutableCopy];
         if ([aForm conformsToProtocol:@protocol(FormProtocol)]) {
             self.cancelTitle = aForm.cancelButton;
             self.submitTitle = aForm.submitButton;
@@ -92,6 +95,18 @@
     }
 }
 
+- (void)heightChangedInCell:(id<FormItemCellProtocol>)cell grow:(BOOL)grow {
+   id <FormItemProtocol> item = [self itemByKey:[cell dataSourceKey]];
+    if (grow)
+        [self.itemsWithInfo addObject:item];
+    else {
+        [self.itemsWithInfo removeObject:item];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CellHeightChangedNotification" object:nil
+                                                      userInfo:@{@"item" : cell}];
+    
+}
+
 - (void)accessoryTappedInCell:(id<FormItemCellProtocol>)cell {
     
 }
@@ -145,19 +160,17 @@
         sizingCell = [tableView dequeueReusableCellWithIdentifier:identifier];
         [self.cellClasses setObject:sizingCell forKey:identifier];
     }
-    [sizingCell configureWithFormItem:item];
-    
-    [sizingCell setNeedsUpdateConstraints];
-    [sizingCell updateConstraintsIfNeeded];
-    
-    sizingCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(sizingCell.bounds));
-    [sizingCell.contentView setNeedsLayout];
-    [sizingCell.contentView layoutIfNeeded];
+    BOOL shoulShowInfo = [self.itemsWithInfo containsObject:item];
+    [sizingCell configureWithFormItem:item showInfo:shoulShowInfo];
+    [sizingCell layoutIfNeeded];
 
-//    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-//    NSLog(@"%f", size.height);
-    CGSize size = [sizingCell calculateSize:tableView.bounds.size];
-    return size.height;
+    CGFloat height = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    NSLog(@"h = %2.2f", height);
+    if ([identifier isEqualToString:@"FormDescriptionCell"]) {
+        height = [(FormDescriptionCell *)sizingCell height];
+    }
+
+    return height + 1;
 }
 
 #pragma mark - Table view data source
@@ -176,7 +189,8 @@
     UITableViewCell <FormItemCellProtocol> *cell = [[FormItemCellFactory defaultFactory] cellWithFormItem:formItem forTableView:tableView];
     //TODO:
     //remove cell separator for group items
-    [cell configureWithFormItem:formItem];
+    BOOL shoulShowInfo = [self.itemsWithInfo containsObject:formItem];
+    [cell configureWithFormItem:formItem showInfo:shoulShowInfo];
     if (_shouldValidateAllCells) {
         [self validateCell:cell];
     }

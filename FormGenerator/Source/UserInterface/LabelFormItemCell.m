@@ -14,7 +14,7 @@
 @synthesize rightView;
 #pragma mark - FormItemCell delegate
 - (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem {
-    [super configureWithFormItem:aFormItem];
+    [super configureWithFormItem:aFormItem showInfo:NO];
     self.lblValue.text = [aFormItem defaultValue];
 }
 

@@ -23,15 +23,14 @@
         [_validationSign setImage:imgSign forState:UIControlStateSelected];
         [_validationSign setImage:imgSign forState:UIControlStateHighlighted];
         [_validationSign addTarget:self action:@selector(onValidationSign) forControlEvents:UIControlEventTouchUpInside];
-        
     }
     return self;
 }
 
 #pragma mark - FormItemCell delegate
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem {
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow {
     self.bindingKey = [aFormItem bindingKey];
-
+    
     self.dataSourceKey = [aFormItem key];
     
     if (aFormItem.helpText.length > 0) {
@@ -42,6 +41,12 @@
     }
     self.lblTitle.text = aFormItem.label;
     self.lblDescription.text = aFormItem.itemDescription;
+    shouldShow ? [self.errorView show] : [self.errorView silentHide];
+    [self forceLayout];
+}
+
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem {
+    [self configureWithFormItem:aFormItem showInfo:NO];
 }
 
 - (NSDictionary *)keyedValue {
@@ -68,46 +73,31 @@
         self.validationSign.center = CGPointMake(10 + self.validationSign.bounds.size.width, self.bounds.size.height * .5);
         self.currentErrorMessage = message;
     }
-    [self forceLayout];}
+    [self forceLayout];
+}
 
 - (void)hideErrorMessage {
-    [self.errorView hideAnimated:YES completion:nil];
+    [self.errorView hide];
+    [self forceLayout];
 }
 
 - (void)showErrorMessage:(NSString *)message {
-    if (!self.errorView) {
-        self.errorView = [[MessageView alloc] initWithMessage:message];
-        self.errorView.delegate = self;
-    } else {
-        [self.errorView updateWithMessage:message];
-    }
-    self.cnstrcontent2Top.constant = self.errorView.frame.size.height;
+    [self.errorView updateWithMessage:message];
     [self forceLayout];
-    if (![[self.contentView subviews] containsObject:_errorView]) {
-        [self.contentView addSubview:self.errorView];
-    }
-    self.errorView.center = CGPointMake(self.validationSign.center.x + self.errorView.frame.size.width * .5, self.errorView.frame.size.height * .5 + 2);
+    [self.errorView show];
+    [self forceLayout];
+    [self.delegate heightChangedInCell:self grow:YES];
 }
 
 #pragma mark - Message view delegate 
 
 - (void)didHide {
-    self.cnstrcontent2Top.constant = 8;
     [self forceLayout];
-}
-
-- (CGSize)calculateSize:(CGSize)parentSize {
-    CGSize result;
-    
-    return result;
+    [self.delegate heightChangedInCell:self grow:NO];
 }
 
 #pragma mark - Actions
 - (IBAction)helpInfo:(id)sender {
-
-}
-
-- (void)test {
 
 }
 

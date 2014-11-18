@@ -32,10 +32,10 @@
     NSMutableArray * array = [NSMutableArray new];
     //add header item, form description
     
-    if (self.form.formDescription) {
-        id <FormItemProtocol> descriptionItem = [[BaseFormItem alloc] initWithType:FormItemTypeDescription name:@"Description" value:self.form.formDescription description:nil];
-        [self.items addObject:@[descriptionItem]];
-    }
+//    if (self.form.formDescription) {
+//        id <FormItemProtocol> descriptionItem = [[BaseFormItem alloc] initWithType:FormItemTypeDescription name:@"Description" value:self.form.formDescription description:nil];
+//        [self.items addObject:@[descriptionItem]];
+//    }
     //add all fields
     for (id <FormItemProtocol> item in self.form.items) {
         if (item.type == FormItemTypeNestedGroup) {
@@ -61,10 +61,10 @@
     [self.items addObject:[array copy]];
     [array removeAllObjects];
     //add agree text
-    if (self.form.agreeText) {
-        id <FormItemProtocol> descriptionItem = [[BaseFormItem alloc] initWithType:FormItemTypeAgree name:@"Agreee" value:self.form.agreeText description:nil];
-        [self.items addObject:@[descriptionItem]];
-    }
+//    if (self.form.agreeText) {
+//        id <FormItemProtocol> descriptionItem = [[BaseFormItem alloc] initWithType:FormItemTypeAgree name:@"Agreee" value:self.form.agreeText description:nil];
+//        [self.items addObject:@[descriptionItem]];
+//    }
 
 }
 

@@ -9,7 +9,8 @@
 #import "AbstractFormItemCell.h"
 
 @interface AgreeFormItemCell : AbstractFormItemCell <UIWebViewDelegate>
-@property (nonatomic, strong) IBOutlet UISwitch * switcher;
-@property (nonatomic, strong) IBOutlet UIWebView * webView;
+@property (nonatomic, weak) IBOutlet UISwitch * switcher;
+@property (nonatomic, weak) IBOutlet UIWebView * webView;
 - (IBAction)switched:(id)sender;
+@property CGFloat height;
 @end

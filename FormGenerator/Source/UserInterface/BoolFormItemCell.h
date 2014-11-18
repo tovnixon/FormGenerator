@@ -9,5 +9,5 @@
 #import "AbstractFormItemCell.h"
 
 @interface BoolFormItemCell : AbstractFormItemCell
-@property (nonatomic, strong) IBOutlet UISwitch * switcher;
+@property (nonatomic, weak) IBOutlet UISwitch * switcher;
 @end

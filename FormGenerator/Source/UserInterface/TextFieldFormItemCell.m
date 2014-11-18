@@ -24,7 +24,7 @@
 
 #pragma mark - FormItemCell delegate
 - (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem {
-    [super configureWithFormItem:aFormItem];
+    [super configureWithFormItem:aFormItem showInfo:NO];
     self.txtInput.text = [aFormItem storedValue] ? [aFormItem storedValue] : [aFormItem defaultValue];
     [self setNeedsUpdateConstraints];
     [self setNeedsLayout];

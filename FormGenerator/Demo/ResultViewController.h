@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ResultViewController : UIViewController
-@property (nonatomic) IBOutlet UITextView * tvXML;
+@property (nonatomic, weak) IBOutlet UITextView * tvXML;
 - (void)setText:(NSString *)text;
 @end

@@ -33,4 +33,15 @@
     return YES;
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)aWebView {
+    CGRect frame = aWebView.frame;
+    frame.size.height = 1;
+    aWebView.frame = frame;
+    CGSize fittingSize = [aWebView sizeThatFits:CGSizeZero];
+    frame.size = fittingSize;
+    aWebView.frame = frame;
+    self.height = fittingSize.height + 10;
+    NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
+}
+
 @end

@@ -9,5 +9,5 @@
 #import "AbstractFormItemCell.h"
 
 @interface LabelFormItemCell : AbstractFormItemCell
-@property (nonatomic, strong) IBOutlet UILabel * lblValue;
+@property (nonatomic, weak) IBOutlet UILabel * lblValue;
 @end

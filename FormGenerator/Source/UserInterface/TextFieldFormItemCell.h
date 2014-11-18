@@ -9,5 +9,5 @@
 #import "AbstractFormItemCell.h"
 
 @interface TextFieldFormItemCell : AbstractFormItemCell <UITextFieldDelegate>
-@property (nonatomic, strong) IBOutlet UITextField * txtInput;
+@property (nonatomic, weak) IBOutlet UITextField * txtInput;
 @end

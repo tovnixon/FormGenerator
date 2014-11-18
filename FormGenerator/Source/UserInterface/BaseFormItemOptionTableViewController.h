@@ -10,7 +10,7 @@
 @protocol FormItemOptionTableViewControllerDelegate;
 
 @interface BaseFormItemOptionTableViewController : UITableViewController
-@property (nonatomic, strong) IBOutlet UIBarButtonItem * btnDone;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem * btnDone;
 
 @property (nonatomic, weak) id <FormItemOptionTableViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSArray * options;

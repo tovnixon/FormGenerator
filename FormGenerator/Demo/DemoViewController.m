@@ -13,8 +13,8 @@
 #import "ResultViewController.h"
 @interface DemoViewController ()
 @property (nonatomic) NSString * aText;
-@property (nonatomic, strong) IBOutlet UIButton * btnGenerateForm;
-@property (nonatomic, strong) IBOutlet UITextView  * tvTargetJSON;
+@property (nonatomic, weak) IBOutlet UIButton * btnGenerateForm;
+@property (nonatomic, weak) IBOutlet UITextView  * tvTargetJSON;
 @end
 
 @implementation DemoViewController

@@ -12,10 +12,10 @@
 @end
 typedef void (^HidingCompletionBlock)();
 @interface MessageView : UIView
-@property (nonatomic, weak) id <MessageViewDelegate> delegate;
-- (id)initWithFrame:(CGRect)frame message:(NSString *)aMessage;
-- (id)initWithMessage:(NSString *)aMessage;
+@property (nonatomic, weak) IBOutlet id <MessageViewDelegate> delegate;
+
 - (void)updateWithMessage:(NSString *)aMessage;
-- (void)hideAnimated:(BOOL)animated;
-- (void)hideAnimated:(BOOL)animated completion:(HidingCompletionBlock)block;
+- (void)show;
+- (void)hide;
+- (void)silentHide;
 @end
