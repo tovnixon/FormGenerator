@@ -8,12 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		711722C21A14B18100D86248 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 711722C11A14B18100D86248 /* Images.xcassets */; };
-		712CA3661A16705F00FA21D9 /* UILabel+DynamicHeigth.m in Sources */ = {isa = PBXBuildFile; fileRef = 712CA3651A16705F00FA21D9 /* UILabel+DynamicHeigth.m */; };
 		7149CEEE1A16A1E600DC1AEF /* FormConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7149CEED1A16A1E600DC1AEF /* FormConfigurator.m */; };
 		7149CEF11A16CEA300DC1AEF /* GroupHeaderItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7149CEF01A16CEA300DC1AEF /* GroupHeaderItemCell.m */; };
-		7149CEFC1A17B24400DC1AEF /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7149CEF41A17B24400DC1AEF /* ALView+PureLayout.m */; };
-		7149CEFD1A17B24400DC1AEF /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7149CEF61A17B24400DC1AEF /* NSArray+PureLayout.m */; };
-		7149CEFE1A17B24400DC1AEF /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7149CEF81A17B24400DC1AEF /* NSLayoutConstraint+PureLayout.m */; };
 		7179794B1A124B79008BC665 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7179794A1A124B79008BC665 /* main.m */; };
 		717979541A124B79008BC665 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 717979521A124B79008BC665 /* Main.storyboard */; };
 		717979591A124B79008BC665 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 717979571A124B79008BC665 /* LaunchScreen.xib */; };
@@ -64,21 +60,10 @@
 
 /* Begin PBXFileReference section */
 		711722C11A14B18100D86248 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		712CA3641A16705F00FA21D9 /* UILabel+DynamicHeigth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+DynamicHeigth.h"; sourceTree = "<group>"; };
-		712CA3651A16705F00FA21D9 /* UILabel+DynamicHeigth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+DynamicHeigth.m"; sourceTree = "<group>"; };
 		7149CEEC1A16A1E600DC1AEF /* FormConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormConfigurator.h; sourceTree = "<group>"; };
 		7149CEED1A16A1E600DC1AEF /* FormConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormConfigurator.m; sourceTree = "<group>"; };
 		7149CEEF1A16CEA300DC1AEF /* GroupHeaderItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupHeaderItemCell.h; sourceTree = "<group>"; };
 		7149CEF01A16CEA300DC1AEF /* GroupHeaderItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupHeaderItemCell.m; sourceTree = "<group>"; };
-		7149CEF31A17B24400DC1AEF /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALView+PureLayout.h"; sourceTree = "<group>"; };
-		7149CEF41A17B24400DC1AEF /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALView+PureLayout.m"; sourceTree = "<group>"; };
-		7149CEF51A17B24400DC1AEF /* NSArray+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PureLayout.h"; sourceTree = "<group>"; };
-		7149CEF61A17B24400DC1AEF /* NSArray+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PureLayout.m"; sourceTree = "<group>"; };
-		7149CEF71A17B24400DC1AEF /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
-		7149CEF81A17B24400DC1AEF /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
-		7149CEF91A17B24400DC1AEF /* PureLayout+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PureLayout+Internal.h"; sourceTree = "<group>"; };
-		7149CEFA1A17B24400DC1AEF /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayout.h; sourceTree = "<group>"; };
-		7149CEFB1A17B24400DC1AEF /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayoutDefines.h; sourceTree = "<group>"; };
 		717979451A124B79008BC665 /* FormGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		717979491A124B79008BC665 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7179794A1A124B79008BC665 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -179,22 +164,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7149CEF21A17B24400DC1AEF /* PureLayout */ = {
-			isa = PBXGroup;
-			children = (
-				7149CEF31A17B24400DC1AEF /* ALView+PureLayout.h */,
-				7149CEF41A17B24400DC1AEF /* ALView+PureLayout.m */,
-				7149CEF51A17B24400DC1AEF /* NSArray+PureLayout.h */,
-				7149CEF61A17B24400DC1AEF /* NSArray+PureLayout.m */,
-				7149CEF71A17B24400DC1AEF /* NSLayoutConstraint+PureLayout.h */,
-				7149CEF81A17B24400DC1AEF /* NSLayoutConstraint+PureLayout.m */,
-				7149CEF91A17B24400DC1AEF /* PureLayout+Internal.h */,
-				7149CEFA1A17B24400DC1AEF /* PureLayout.h */,
-				7149CEFB1A17B24400DC1AEF /* PureLayoutDefines.h */,
-			);
-			path = PureLayout;
-			sourceTree = "<group>";
-		};
 		7179793C1A124B79008BC665 = {
 			isa = PBXGroup;
 			children = (
@@ -374,9 +343,6 @@
 		717979B21A13CAF2008BC665 /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
-				7149CEF21A17B24400DC1AEF /* PureLayout */,
-				712CA3641A16705F00FA21D9 /* UILabel+DynamicHeigth.h */,
-				712CA3651A16705F00FA21D9 /* UILabel+DynamicHeigth.m */,
 				71D5DC2B1A1A144D00C26A26 /* MessageView.h */,
 				71D5DC2C1A1A144D00C26A26 /* MessageView.m */,
 			);
@@ -504,6 +470,7 @@
 				TargetAttributes = {
 					717979441A124B79008BC665 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = K835YM3DHM;
 					};
 					7179795D1A124B79008BC665 = {
 						CreatedOnToolsVersion = 6.1;
@@ -557,9 +524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7179799A1A134D8E008BC665 /* TextFieldFormItemCell.m in Sources */,
-				7149CEFC1A17B24400DC1AEF /* ALView+PureLayout.m in Sources */,
 				7149CEF11A16CEA300DC1AEF /* GroupHeaderItemCell.m in Sources */,
-				712CA3661A16705F00FA21D9 /* UILabel+DynamicHeigth.m in Sources */,
 				71D5DC1A1A1972F600C26A26 /* DDXMLElementAdditions.m in Sources */,
 				71D5DC011A18EBBE00C26A26 /* FormDescriptionCell.m in Sources */,
 				71D5DC1C1A1972F600C26A26 /* DDXMLDocument.m in Sources */,
@@ -577,13 +542,11 @@
 				71D5DC1E1A1972F600C26A26 /* DDXMLNode.m in Sources */,
 				717979AF1A13AEEE008BC665 /* BaseFormDataSource.m in Sources */,
 				7179797F1A124EB4008BC665 /* ModalFormTableViewController.m in Sources */,
-				7149CEFD1A17B24400DC1AEF /* NSArray+PureLayout.m in Sources */,
 				71E5115C1A15FE2900CDEE94 /* FormItemSelectionTableViewController.m in Sources */,
 				7179794B1A124B79008BC665 /* main.m in Sources */,
 				71D5DC1D1A1972F600C26A26 /* DDXMLElement.m in Sources */,
 				71E511581A150F8000CDEE94 /* BaseFormItemOptionTableViewController.m in Sources */,
 				71E511521A15053800CDEE94 /* SingleSelectionFormItemCell.m in Sources */,
-				7149CEFE1A17B24400DC1AEF /* NSLayoutConstraint+PureLayout.m in Sources */,
 				7149CEEE1A16A1E600DC1AEF /* FormConfigurator.m in Sources */,
 				717979A31A1354D9008BC665 /* FormItemCellFactory.m in Sources */,
 				71E511551A150E0E00CDEE94 /* FormItemOption.m in Sources */,

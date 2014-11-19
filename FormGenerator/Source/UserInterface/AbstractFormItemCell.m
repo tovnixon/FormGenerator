@@ -7,7 +7,6 @@
 //
 #import "AbstractFormItemCell.h"
 #import "FormItemProtocol.h"
-#import "UILabel+DynamicHeigth.h"
 @implementation AbstractFormItemCell
 @synthesize bindingKey;
 @synthesize delegate;
@@ -39,7 +38,6 @@
     self.cnstrTitle2Left.constant = aFormItem.valid ? 20 : 50;
     [self.errorView updateWithMessage:aFormItem.errorMessage];
     self.validationSign.hidden = aFormItem.valid;
-//    [self forceLayout];
 }
 
 - (NSDictionary *)keyedValue {
@@ -57,8 +55,10 @@
 - (void)updateValidationInfo:(NSString *)message valid:(BOOL)isValid {
     self.valid = isValid;
     isValid ? [self hideErrorMessage] : [self showErrorMessage];
+    self.cnstrTitle2Left.constant = self.valid ? 20 : 50;
+    self.validationSign.hidden = self.valid;
+
     [self.delegate cellValueChanged:self validationRequired:NO];
-//    [self forceLayout];
 }
 
 - (void)hideErrorMessage {
@@ -72,12 +72,10 @@
 #pragma mark - Message view delegate 
 
 - (void)didShow {
-//    [self forceLayout];
     [self.delegate heightChangedInCell:self grow:YES];
 }
 
 - (void)didHide {
-//    [self forceLayout];
     [self.delegate heightChangedInCell:self grow:NO];
 }
 
