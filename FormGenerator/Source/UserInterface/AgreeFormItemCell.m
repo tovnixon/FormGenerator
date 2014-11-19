@@ -9,6 +9,11 @@
 #import "AgreeFormItemCell.h"
 #import "FormItemProtocol.h"
 
+@interface AgreeFormItemCell() {
+    BOOL _singleLoad;
+}
+@end
+
 @implementation AgreeFormItemCell
 - (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
     
@@ -45,18 +50,12 @@
 }
 
 - (CGSize)calculateSize:(CGSize)parentSize {
-    return CGSizeMake(1, 100);
+    return CGSizeMake(1, _singleLoad ? self.height : 120);
 }
 
-//- (void)webViewDidFinishLoad:(UIWebView *)aWebView {
-//    CGRect frame = aWebView.frame;
-//    frame.size.height = 1;
-//    aWebView.frame = frame;
-//    CGSize fittingSize = [aWebView sizeThatFits:CGSizeZero];
-//    frame.size = fittingSize;
-//    aWebView.frame = frame;
-//    self.height = fittingSize.height + 10;
-//    NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
-//}
+- (void)webViewDidFinishLoad:(UIWebView *)aWebView {
+    _singleLoad = YES;
+    self.height = self.webView.scrollView.contentSize.height;
+}
 
 @end
