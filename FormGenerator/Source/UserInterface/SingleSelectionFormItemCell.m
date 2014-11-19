@@ -17,7 +17,9 @@
 }
 
 - (NSDictionary *)keyedValue {
-    return @{kValidationKeyKey :[self bindingKey], kValidationValueKey : self.lblValue.text ? self.lblValue.text : @""};
+    return @{kValidationKeyKey :[self bindingKey],
+             kValidationValueKey : self.lblValue.text ? self.lblValue.text : @"",
+             kIsValidKey : [NSNumber numberWithBool:self.valid]};
 }
 
 - (void)updateValidationInfo:(NSString *)message valid:(BOOL)isValid {

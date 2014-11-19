@@ -10,4 +10,5 @@
 
 @interface TextAreaFormItemCell : AbstractFormItemCell <UITextViewDelegate>
 @property (nonatomic, weak) IBOutlet UITextView * tvInput;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint * cntrTextViewHeight;
 @end

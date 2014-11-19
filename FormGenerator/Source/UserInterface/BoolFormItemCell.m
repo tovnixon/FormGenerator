@@ -32,7 +32,9 @@
 
 - (NSDictionary *)keyedValue {
     NSString * value = [self.switcher isOn] ? @"true" : @"false";
-    return @{kValidationKeyKey : [self bindingKey], kValidationValueKey : value};
+    return @{kValidationKeyKey : [self bindingKey],
+             kValidationValueKey : value,
+             kIsValidKey : [NSNumber numberWithBool:self.valid]};
 }
 
 @end

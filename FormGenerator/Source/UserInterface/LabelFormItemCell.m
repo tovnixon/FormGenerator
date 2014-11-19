@@ -21,7 +21,7 @@
 - (NSDictionary *)keyedValue {
     return @{kValidationKeyKey :[self bindingKey], kValidationValueKey : self.lblValue.text};
 }
-
+/*
 - (CGSize)calculateSize:(CGSize)parentSize {
     CGSize result;
     float widthOfTitle = parentSize.width * .33;
@@ -41,5 +41,6 @@
     return result;
 }
 
+ */
 
 @end

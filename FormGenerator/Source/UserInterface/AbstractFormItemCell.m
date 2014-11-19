@@ -39,13 +39,16 @@
     self.cnstrTitle2Left.constant = aFormItem.valid ? 20 : 50;
     [self.errorView updateWithMessage:aFormItem.errorMessage];
     self.validationSign.hidden = aFormItem.valid;
-    [self forceLayout];
+//    [self forceLayout];
 }
 
 - (NSDictionary *)keyedValue {
     return nil;
 }
 
+- (CGSize)calculateSize:(CGSize)parentSize {
+    return CGSizeZero;
+}
 #pragma mark - validation
 - (IBAction)onSignTap:(id)sender {
     [self showErrorMessage];
@@ -55,7 +58,7 @@
     self.valid = isValid;
     isValid ? [self hideErrorMessage] : [self showErrorMessage];
     [self.delegate cellValueChanged:self validationRequired:NO];
-    [self forceLayout];
+//    [self forceLayout];
 }
 
 - (void)hideErrorMessage {
@@ -69,12 +72,12 @@
 #pragma mark - Message view delegate 
 
 - (void)didShow {
-    [self forceLayout];
+//    [self forceLayout];
     [self.delegate heightChangedInCell:self grow:YES];
 }
 
 - (void)didHide {
-    [self forceLayout];
+//    [self forceLayout];
     [self.delegate heightChangedInCell:self grow:NO];
 }
 
