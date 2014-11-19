@@ -18,7 +18,7 @@
 @property (nonatomic, copy, readonly) NSString * formTitle;
 @property (nonatomic, copy, readonly) NSString * cancelTitle;
 @property (nonatomic, copy, readonly) NSString * submitTitle;
-
+@property (nonatomic) BOOL shouldValidateAll;
 - (id)initWithForm:(id<FormProtocol>)aForm;
 - (BOOL)validateValuesIn:(UITableView *)tableView;
 - (BOOL)validateCell:(id<FormItemCellProtocol>)cell;

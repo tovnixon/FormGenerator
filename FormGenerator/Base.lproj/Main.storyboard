@@ -184,14 +184,14 @@
                                             </connections>
                                         </webView>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="a8H-Wv-Q95">
-                                            <rect key="frame" x="695" y="12" width="51" height="31"/>
+                                            <rect key="frame" x="691" y="12" width="51" height="31"/>
                                             <connections>
                                                 <action selector="switched:" destination="Eiz-iE-ySV" eventType="valueChanged" id="OQt-JZ-8PY"/>
                                             </connections>
                                         </switch>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="a8H-Wv-Q95" secondAttribute="trailing" constant="16" id="0Gz-lZ-Uew"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="a8H-Wv-Q95" secondAttribute="trailing" constant="20" id="0Gz-lZ-Uew"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="PQD-E3-knN" secondAttribute="trailing" constant="80" id="DcI-h2-VfY"/>
                                         <constraint firstItem="PQD-E3-knN" firstAttribute="top" secondItem="a8H-Wv-Q95" secondAttribute="top" id="KXv-9H-HuI"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="PQD-E3-knN" secondAttribute="bottom" priority="750" constant="4" id="WDS-p2-Kw8"/>
@@ -211,7 +211,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96g-ox-jl8">
-                                            <rect key="frame" x="28" y="12" width="712" height="19.5"/>
+                                            <rect key="frame" x="13" y="12" width="727" height="19.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <outlet property="delegate" destination="JK5-w6-1JX" id="YR8-h7-JWp"/>
@@ -219,7 +219,7 @@
                                         </webView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="96g-ox-jl8" firstAttribute="leading" secondItem="UHi-1p-ceH" secondAttribute="leadingMargin" constant="20" id="93o-YA-RV1"/>
+                                        <constraint firstItem="96g-ox-jl8" firstAttribute="leading" secondItem="UHi-1p-ceH" secondAttribute="leadingMargin" constant="5" id="93o-YA-RV1"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="96g-ox-jl8" secondAttribute="trailing" constant="20" id="E3z-oU-Y5u"/>
                                         <constraint firstItem="96g-ox-jl8" firstAttribute="top" secondItem="UHi-1p-ceH" secondAttribute="topMargin" constant="4" id="orV-s0-GMj"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="96g-ox-jl8" secondAttribute="bottom" priority="750" constant="4" id="uiA-mh-eH1"/>
@@ -689,7 +689,6 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="7c2-nA-ibS" firstAttribute="leading" secondItem="cvI-3n-Rga" secondAttribute="leading" constant="8" id="Ack-9E-hWR"/>
-                                        <constraint firstItem="Cuj-hz-RHO" firstAttribute="centerY" secondItem="s4J-zi-XFi" secondAttribute="centerY" constant="-2.5" id="Bmh-Rz-QhJ"/>
                                         <constraint firstItem="wtv-PZ-WpZ" firstAttribute="trailing" secondItem="s4J-zi-XFi" secondAttribute="trailing" id="C0H-n7-ZeD"/>
                                         <constraint firstItem="bvo-Ow-ouS" firstAttribute="leading" secondItem="cvI-3n-Rga" secondAttribute="leading" id="DiX-mA-MRY"/>
                                         <constraint firstItem="wtv-PZ-WpZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="WP9-jv-nDq" secondAttribute="bottom" constant="2" id="GSn-oW-frL"/>
@@ -748,11 +747,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="S9V-61-z7F">
-                                                    <rect key="frame" x="436" y="10" width="10" height="14"/>
+                                                    <rect key="frame" x="426" y="10" width="10" height="14"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="S9V-61-z7F" secondAttribute="trailing" constant="10" id="TcE-07-lYE"/>
+                                                <constraint firstAttribute="trailing" secondItem="S9V-61-z7F" secondAttribute="trailing" constant="20" id="TcE-07-lYE"/>
                                                 <constraint firstAttribute="bottom" secondItem="S9V-61-z7F" secondAttribute="bottom" constant="10.5" id="gBp-za-0rA"/>
                                                 <constraint firstItem="LMd-xz-moP" firstAttribute="top" secondItem="hfk-OK-SEK" secondAttribute="top" constant="4" id="o95-T7-2fe"/>
                                                 <constraint firstItem="S9V-61-z7F" firstAttribute="top" secondItem="hfk-OK-SEK" secondAttribute="top" constant="10" id="pZn-iP-gYo"/>

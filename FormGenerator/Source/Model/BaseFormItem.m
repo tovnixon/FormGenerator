@@ -35,6 +35,7 @@
 @synthesize key;
 @synthesize children;
 @synthesize valid;
+@synthesize validatable;
 @synthesize errorMessage;
 - (id)init {
     self = [super init];
@@ -57,6 +58,7 @@
         [self setValue:aDescription forKey:@"itemDescription"];
         [self setValue:@(aType) forKey:@"type"];
         self.key = [NSString stringWithFormat:@"%@_%d", self.name, arc4random()%10000];
+        self.validatable = YES;
     }
     return self;
 }

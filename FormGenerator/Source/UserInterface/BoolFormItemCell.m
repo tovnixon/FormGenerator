@@ -22,7 +22,10 @@
 #pragma mark - FormItemCell delegate
 - (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
     [super configureWithFormItem:aFormItem showInfo:NO delegate:aDelegate];
-    self.switcher.enabled = !aFormItem.readonly;
+    if (aFormItem.readonly) {
+        self.switcher.enabled = NO;
+    }
+//    self.switcher.enabled = !aFormItem.readonly;
     if (aFormItem.storedValue) {
         [self.switcher setOn:[aFormItem.storedValue isEqualToString:@"true"] animated:YES];
     } else {

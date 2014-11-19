@@ -35,10 +35,6 @@
              kIsValidKey : [NSNumber numberWithBool:self.valid]};
 }
 
-- (void)updateValidationInfo:(NSString *)message valid:(BOOL)isValid {
-    [super updateValidationInfo:message valid:isValid];
-}
-
 #pragma mark - Textfield delegate
 //TODO:
 //implement max length here

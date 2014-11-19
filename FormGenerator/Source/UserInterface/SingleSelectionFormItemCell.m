@@ -22,8 +22,4 @@
              kIsValidKey : [NSNumber numberWithBool:self.valid]};
 }
 
-- (void)updateValidationInfo:(NSString *)message valid:(BOOL)isValid {
-    [super updateValidationInfo:message valid:isValid];
-}
-
 @end

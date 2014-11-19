@@ -10,7 +10,8 @@
 #import "FormItemProtocol.h"
 
 @implementation AgreeFormItemCell
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem {
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
+    
     self.bindingKey = [aFormItem bindingKey];
     self.dataSourceKey = [aFormItem key];
     NSString *scriptionHTML = [NSString stringWithFormat:@"<html> \n"
@@ -19,9 +20,10 @@
                      "body {font-family: \"%@\"; font-size: %@;}\n"
                      "</style> \n"
                      "</head> \n"
-                     "<body>%@</body> \n"
+                     "<body>%@<br><br></body> \n"
                      "</html>", @"HelveticaNeue-Light", [NSNumber numberWithInt:22], aFormItem.label];
     [self.webView loadHTMLString:scriptionHTML baseURL:nil];
+    self.webView.scrollView.scrollEnabled = NO;
 }
 
 - (IBAction)switched:(id)sender {
@@ -42,15 +44,19 @@
     return YES;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)aWebView {
-    CGRect frame = aWebView.frame;
-    frame.size.height = 1;
-    aWebView.frame = frame;
-    CGSize fittingSize = [aWebView sizeThatFits:CGSizeZero];
-    frame.size = fittingSize;
-    aWebView.frame = frame;
-    self.height = fittingSize.height + 10;
-    NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
+- (CGSize)calculateSize:(CGSize)parentSize {
+    return CGSizeMake(1, 100);
 }
+
+//- (void)webViewDidFinishLoad:(UIWebView *)aWebView {
+//    CGRect frame = aWebView.frame;
+//    frame.size.height = 1;
+//    aWebView.frame = frame;
+//    CGSize fittingSize = [aWebView sizeThatFits:CGSizeZero];
+//    frame.size = fittingSize;
+//    aWebView.frame = frame;
+//    self.height = fittingSize.height + 10;
+//    NSLog(@"size: %f, %f", fittingSize.width, fittingSize.height);
+//}
 
 @end

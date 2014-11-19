@@ -144,17 +144,21 @@
     NSLog(@"Answer: %@", dict);
     NSString * key = [dict objectForKey:kValidationKeyKey];
     NSString * value = [dict objectForKey:kValidationValueKey];
+    id <FormItemProtocol> item = [self itemByKey:[cell dataSourceKey]];
+    if (item.type == FormItemTypeDescription ||
+        item.type == FormItemTypeAgree) {
+        return YES;
+    }
     [self.validator validateValue:value forKey:key result:^(NSString *errorMessage, BOOL success) {
         valid = success;
         message = errorMessage;
     }];
-    id <FormItemProtocol> item = [self itemByKey:[cell dataSourceKey]];
     item.valid = valid;
     item.errorMessage = message;
     [cell updateValidationInfo:message valid:valid];
-    NSIndexPath * ipToReload = [self indexPathForItemByKey:[cell dataSourceKey]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CellHeightChangedNotification" object:nil
-                                                      userInfo:@{@"item" : ipToReload}];
+//    NSIndexPath * ipToReload = [self indexPathForItemByKey:[cell dataSourceKey]];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"CellHeightChangedNotification" object:nil
+//                                                      userInfo:@{@"item" : ipToReload}];
    
     return valid;
 }
@@ -217,17 +221,14 @@
     BOOL shoulShowInfo = [self.itemsWithInfo containsObject:item];
     [sizingCell configureWithFormItem:item showInfo:shoulShowInfo delegate:nil];
     [sizingCell layoutIfNeeded];
-    if (item.type == FormItemTypeTextArea) {
+    if (item.type == FormItemTypeTextArea ||
+        item.type == FormItemTypeDescription |
+        item.type == FormItemTypeAgree) {
         CGSize s = [sizingCell calculateSize:CGSizeZero];
         return s.height + 1;
-    } else {
-    
     }
     CGFloat height = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-    if ([identifier isEqualToString:@"FormDescriptionCell"]) {
-        height = [(FormDescriptionCell *)sizingCell height];
-    }
-
+    NSLog(@"%2.0f", height);
     return height + 1;
 }
 
@@ -256,7 +257,7 @@
     }
     
     if (_shouldValidateAllCells) {
-//        [self validateCell:cell];
+        [self validateCell:cell];
     }
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];

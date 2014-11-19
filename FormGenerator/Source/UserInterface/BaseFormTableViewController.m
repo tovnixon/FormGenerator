@@ -29,8 +29,6 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(agreeValueChanged:) name:@"UserAgreeChangedNotification" object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellHeightChanged:) name:@"CellHeightChangedNotification" object:nil];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,8 +57,6 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [self.dataSource heightForBasicCellAtIndexPath:indexPath inTableView:tableView];
-//    return 120;
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
