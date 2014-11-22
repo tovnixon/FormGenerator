@@ -27,7 +27,8 @@
                           "label": "Test",
                           "defaultValue":"ssadfsdfsdf",
                           "description": "Укажите официальный статус на английском языке",
-                          "maxLength": "10"
+                          "maxLength": "10",
+                          "helpText":"some info"
                           },
                           {
                           "name": "fatcaGIIN",

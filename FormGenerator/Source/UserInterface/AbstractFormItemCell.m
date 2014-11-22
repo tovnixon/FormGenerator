@@ -34,9 +34,9 @@
     self.lblDescription.text = aFormItem.itemDescription;
     self.delegate = aDelegate;
     
-    shouldShow ? [self.errorView show] : [self.errorView silentHide];
+    shouldShow ? [self.infoView show] : [self.infoView silentHide];
     self.cnstrTitle2Left.constant = aFormItem.valid ? 20 : 50;
-    [self.errorView updateWithMessage:aFormItem.errorMessage];
+    [self.infoView updateWithMessage:aFormItem.errorMessage];
     self.validationSign.hidden = aFormItem.valid;
 }
 
@@ -62,11 +62,11 @@
 }
 
 - (void)hideErrorMessage {
-    [self.errorView hide];
+    [self.infoView hide];
 }
 
 - (void)showErrorMessage {
-    [self.errorView show];
+    [self.infoView show];
 }
 
 #pragma mark - Message view delegate 

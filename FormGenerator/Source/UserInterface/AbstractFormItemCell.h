@@ -17,7 +17,7 @@
 @property (nonatomic, weak) IBOutlet UILabel * lblTitle;
 @property (nonatomic, weak) IBOutlet UILabel * lblDescription;
 
-@property (nonatomic, weak) IBOutlet MessageView * errorView;
+@property (nonatomic, weak) IBOutlet MessageView * infoView;
 @property (nonatomic, weak) IBOutlet UIButton * validationSign;
 @property (nonatomic) NSString * currentErrorMessage;
 

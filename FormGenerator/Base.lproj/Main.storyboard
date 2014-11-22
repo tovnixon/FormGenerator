@@ -35,7 +35,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSr-Qc-UK0">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSr-Qc-UK0">
                                 <rect key="frame" x="20" y="72" width="728" height="824"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">{"form":{
@@ -273,7 +273,7 @@
                                                         <outlet property="delegate" destination="kyb-lv-4qM" id="MW8-JE-xHQ"/>
                                                     </connections>
                                                 </textField>
-                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LIN-Vf-stz">
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LIN-Vf-stz" userLabel="Info">
                                                     <rect key="frame" x="426" y="6" width="22" height="22"/>
                                                     <state key="normal">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -314,7 +314,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LQJ-1g-bTg" userLabel="Sign">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LQJ-1g-bTg" userLabel="Validation">
                                             <rect key="frame" x="8" y="36" width="22" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="vc5-Sh-nN0"/>
@@ -352,7 +352,7 @@
                                     <outlet property="cnstrSignH" destination="vc5-Sh-nN0" id="efd-Pg-BmO"/>
                                     <outlet property="cnstrSignW" destination="xwq-md-jJw" id="BNo-bS-Yzw"/>
                                     <outlet property="cnstrTitle2Left" destination="OPC-IT-GHb" id="LcZ-ZT-Eaw"/>
-                                    <outlet property="errorView" destination="2Tf-0S-bCn" id="57Y-c2-bvf"/>
+                                    <outlet property="infoView" destination="2Tf-0S-bCn" id="LVN-do-PSa"/>
                                     <outlet property="lblDescription" destination="Swe-qN-6a7" id="U2z-0t-afp"/>
                                     <outlet property="lblTitle" destination="ILg-g0-bGx" id="BwY-Hm-x6z"/>
                                     <outlet property="leftView" destination="KLc-cK-PJ7" id="ERj-aA-Owc"/>
@@ -410,7 +410,7 @@
                                                         <outlet property="delegate" destination="mnS-ct-hrN" id="6TH-go-ljK"/>
                                                     </connections>
                                                 </textView>
-                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uUE-ac-Mhq">
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uUE-ac-Mhq" userLabel="Info">
                                                     <rect key="frame" x="426" y="15" width="22" height="22"/>
                                                     <state key="normal">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -451,7 +451,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ulz-l8-wAG" userLabel="Sign">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ulz-l8-wAG" userLabel="Validation">
                                             <rect key="frame" x="8" y="36" width="22" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="22" id="7Cr-sh-TdB"/>
@@ -489,7 +489,7 @@
                                     <outlet property="cnstrSignW" destination="7Cr-sh-TdB" id="q7Y-At-vEx"/>
                                     <outlet property="cnstrTitle2Left" destination="iff-AY-jGV" id="OaN-ld-vx1"/>
                                     <outlet property="cntrTextViewHeight" destination="L6l-Ng-gOg" id="sVg-WX-18m"/>
-                                    <outlet property="errorView" destination="KaG-ei-3Gc" id="fCU-Vo-XIS"/>
+                                    <outlet property="infoView" destination="KaG-ei-3Gc" id="ZPq-q3-NdP"/>
                                     <outlet property="lblDescription" destination="51v-cE-ckd" id="GlC-ce-2Dd"/>
                                     <outlet property="lblTitle" destination="lA7-eo-og9" id="b9c-63-FlM"/>
                                     <outlet property="leftView" destination="Zpf-1C-ajO" id="t0t-Ei-EhH"/>
@@ -606,6 +606,10 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7c2-nA-ibS" userLabel="Validation">
                                             <rect key="frame" x="8" y="36.5" width="22" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="FTw-b8-WXM"/>
+                                                <constraint firstAttribute="width" constant="22" id="Q60-7Z-PNM"/>
+                                            </constraints>
                                             <state key="normal" image="icoError7">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -709,7 +713,7 @@
                                 <connections>
                                     <outlet property="btnHelpInfo" destination="sTS-eS-0AM" id="qao-wW-jG8"/>
                                     <outlet property="cnstrRightEnd2Right" destination="iQd-wh-QKk" id="qbm-QL-xbo"/>
-                                    <outlet property="errorView" destination="QJG-2X-VmU" id="HUx-GW-uMI"/>
+                                    <outlet property="infoView" destination="QJG-2X-VmU" id="bo3-1i-Boa"/>
                                     <outlet property="lblDescription" destination="wtv-PZ-WpZ" id="8mf-wL-hJ2"/>
                                     <outlet property="lblTitle" destination="Cuj-hz-RHO" id="KNc-RJ-lja"/>
                                     <outlet property="leftView" destination="bvo-Ow-ouS" id="FIH-JL-7aL"/>
@@ -724,7 +728,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nKP-mS-wkK" id="rBm-dv-ZI4">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3h-Ra-VUb">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3h-Ra-VUb" userLabel="Validation">
                                             <rect key="frame" x="8" y="40.5" width="28" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="28" id="BG9-9v-qci"/>
@@ -828,7 +832,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="cnstrTitle2Left" destination="KDa-rV-Hyp" id="Utu-q0-1iw"/>
-                                    <outlet property="errorView" destination="TKQ-RK-gt8" id="nyt-uU-tTU"/>
+                                    <outlet property="infoView" destination="TKQ-RK-gt8" id="CA7-ZC-ffe"/>
                                     <outlet property="lblDescription" destination="GRD-AG-3L3" id="aWz-9p-Gkw"/>
                                     <outlet property="lblTitle" destination="FwX-YL-PGQ" id="LpK-bf-GuI"/>
                                     <outlet property="lblValue" destination="LMd-xz-moP" id="Pig-7n-SH4"/>

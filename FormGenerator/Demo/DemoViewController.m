@@ -41,8 +41,8 @@ static NSString * formSegueIdentifier = @"ShowFormSegue";
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:formSegueIdentifier]) {
-        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"cardLimit_v04" ofType:@"json"];
-        NSData * data = [NSData dataWithContentsOfFile:filePath];
+        NSString * content = self.tvTargetJSON.text;
+        NSData * data = [content dataUsingEncoding:NSUTF8StringEncoding];
         DefaultForm * form = [[DefaultForm alloc] initWithJSONData:data];
         ModalFormTableViewController * vc = (ModalFormTableViewController *)[(UINavigationController *)[segue destinationViewController] topViewController];
         BaseFormDataSource *ds = [[BaseFormDataSource alloc] initWithForm:form];
