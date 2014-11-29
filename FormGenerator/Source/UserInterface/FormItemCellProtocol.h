@@ -14,16 +14,13 @@
 
 static NSString * kValidationKeyKey = @"kValidationKeyKey";
 static NSString * kValidationValueKey = @"kValidationValueKey";
-static NSString * kIsValidKey = @"kIsValidKey";
+static NSString * kShowInfoKey = @"kShowInfoKey";
 
 @protocol FormItemProtocol;
 @protocol FormItemCellProtocol;
 @protocol FormItemCellDelegate
 - (void)accessoryTappedInCell:(id<FormItemCellProtocol>)cell;
-- (void)cellValueChanged:(id<FormItemCellProtocol>)cell validationRequired:(BOOL)shouldValidate;
-
-@optional
-- (void)heightChangedInCell:(id<FormItemCellProtocol>)cell grow:(BOOL)grow;
+- (void)cellValueChanged:(id<FormItemCellProtocol>)cell;
 @end
 
 @protocol FormItemCellProtocol <NSObject>
@@ -32,11 +29,11 @@ static NSString * kIsValidKey = @"kIsValidKey";
 @property (nonatomic, weak) id <FormItemCellDelegate> delegate;
 @property (nonatomic, strong) NSString * dataSourceKey;
 @required
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate;
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem delegate:(id<FormItemCellDelegate>)aDelegate;
 //should be overrided in each subclass, returns dictionary with one key-value pair
 // key = formItem.name, value = user input
 - (NSDictionary *)keyedValue;
-- (void)updateValidationInfo:(NSString *)message valid:(BOOL)isValid;
+
 @optional
 
 - (CGSize)calculateSize:(CGSize)parentSize;

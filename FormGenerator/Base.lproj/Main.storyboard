@@ -452,7 +452,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ulz-l8-wAG" userLabel="Validation">
-                                            <rect key="frame" x="8" y="36" width="22" height="22"/>
+                                            <rect key="frame" x="8" y="40.5" width="22" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="22" id="7Cr-sh-TdB"/>
                                                 <constraint firstAttribute="height" constant="22" id="KYO-nf-D14"/>
@@ -465,7 +465,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Zpf-1C-ajO" firstAttribute="leading" secondItem="bn4-8e-HeC" secondAttribute="leading" id="4SK-FR-jw7"/>
-                                        <constraint firstAttribute="centerY" secondItem="Ulz-l8-wAG" secondAttribute="centerY" constant="3.75" id="Hkv-Ij-wRm"/>
+                                        <constraint firstAttribute="centerY" secondItem="Ulz-l8-wAG" secondAttribute="centerY" id="Hkv-Ij-wRm"/>
                                         <constraint firstItem="S0p-XH-lv2" firstAttribute="trailing" secondItem="51v-cE-ckd" secondAttribute="trailing" id="HwI-4z-Kgj"/>
                                         <constraint firstItem="lD5-8M-Oui" firstAttribute="width" secondItem="Zpf-1C-ajO" secondAttribute="width" multiplier="3:2" id="Orj-CG-Dmn"/>
                                         <constraint firstItem="51v-cE-ckd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="lD5-8M-Oui" secondAttribute="bottom" constant="2" id="QCr-pc-3e7"/>

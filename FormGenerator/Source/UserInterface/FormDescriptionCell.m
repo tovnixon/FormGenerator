@@ -15,7 +15,7 @@
 @end
 @implementation FormDescriptionCell
 #pragma mark - FormItemCell delegate
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem delegate:(id<FormItemCellDelegate>)aDelegate {
     self.dataSourceKey = [aFormItem key];
     NSString *scriptionHTML = [NSString stringWithFormat:@"<html> \n"
                                "<head> \n"
@@ -40,6 +40,7 @@
 }
 
 - (CGSize)calculateSize:(CGSize)parentSize {
+    return CGSizeMake(1, 120);
     return CGSizeMake(1, _singleLoad ? self.height : 120);
 }
 

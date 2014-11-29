@@ -27,6 +27,7 @@ typedef enum {
 @property (nonatomic, copy, readonly) NSString * formID;
 @property (nonatomic, readonly) FormStyle        formStyle;
 @property (nonatomic, copy, readonly) NSArray * items;
+@property (nonatomic, copy, readonly) NSArray * pages;
 
 - (id)initWithJSONData:(NSData *)data;
 - (NSString *)xmlString;
@@ -42,6 +43,5 @@ typedef enum {
 @property (nonatomic, copy, readonly) NSString * formDescription;
 @property (nonatomic, copy, readonly) NSString * agreeText;
 
-#warning param pages is mentioned in documentation but i don't know how to use it and do we really need it
 
 @end

@@ -21,7 +21,6 @@
 @property (nonatomic) BOOL shouldValidateAll;
 - (id)initWithForm:(id<FormProtocol>)aForm;
 - (BOOL)validateValuesIn:(UITableView *)tableView;
-- (BOOL)validateCell:(id<FormItemCellProtocol>)cell;
 - (BOOL)shouldSelectCellAtIndexPath:(NSIndexPath *)indexPath;
 - (id<FormItemProtocol>)itemForCellByIndexPath:(NSIndexPath *)indexPath;
 - (void)didSelectCell:(UITableViewCell *)cell;

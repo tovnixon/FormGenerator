@@ -11,6 +11,7 @@
 @synthesize bindingKey;
 @synthesize delegate;
 @synthesize dataSourceKey;
+@synthesize showInfoView;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -21,11 +22,11 @@
 }
 
 #pragma mark - FormItemCell delegate
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem delegate:(id<FormItemCellDelegate>)aDelegate {
     self.bindingKey = [aFormItem bindingKey];
     self.dataSourceKey = [aFormItem key];
     if (aFormItem.helpText.length > 0) {
-        self.cnstrRightEnd2Right.constant = 50;
+        self.cnstrRightEnd2Right.constant = cnstrRightOffset;
         self.btnHelpInfo.hidden = NO;
     } else {
         self.btnHelpInfo.hidden = YES;
@@ -33,11 +34,17 @@
     self.lblTitle.text = aFormItem.label;
     self.lblDescription.text = aFormItem.itemDescription;
     self.delegate = aDelegate;
+//
+    BOOL isValid = [aFormItem isValid];
+    self.showInfoView = aFormItem.displayErrorMessage;
     
-    shouldShow ? [self.infoView show] : [self.infoView silentHide];
-    self.cnstrTitle2Left.constant = aFormItem.valid ? 20 : 50;
+    self.cnstrTitle2Left.constant = isValid ? cnstrTitle2LeftDefault : cnstrTitle2LeftOffset;
+    self.showInfoView ? [self.infoView show] : [self.infoView silentHide];
+
     [self.infoView updateWithMessage:aFormItem.errorMessage];
-    self.validationSign.hidden = aFormItem.valid;
+    self.validationSign.hidden = isValid;
+    
+    self.lblTitle.preferredMaxLayoutWidth = isValid ? 274 : 224;
 }
 
 - (NSDictionary *)keyedValue {
@@ -49,16 +56,8 @@
 }
 #pragma mark - validation
 - (IBAction)onSignTap:(id)sender {
-    [self showErrorMessage];
-}
-
-- (void)updateValidationInfo:(NSString *)message valid:(BOOL)isValid {
-    self.valid = isValid;
-    isValid ? [self hideErrorMessage] : [self showErrorMessage];
-    self.cnstrTitle2Left.constant = self.valid ? 20 : 50;
-    self.validationSign.hidden = self.valid;
-
-    [self.delegate cellValueChanged:self validationRequired:NO];
+    self.showInfoView = !self.showInfoView;
+    [self.delegate cellValueChanged:self];
 }
 
 - (void)hideErrorMessage {
@@ -72,11 +71,13 @@
 #pragma mark - Message view delegate 
 
 - (void)didShow {
-    [self.delegate heightChangedInCell:self grow:YES];
+    self.showInfoView = YES;
+    [self.delegate cellValueChanged:self];
 }
 
 - (void)didHide {
-    [self.delegate heightChangedInCell:self grow:NO];
+    self.showInfoView = NO;
+    [self.delegate cellValueChanged:self];
 }
 
 #pragma mark - Actions
@@ -85,9 +86,10 @@
 }
 
 - (void)forceLayout {
-    [self setNeedsUpdateConstraints];
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    [self.contentView setNeedsUpdateConstraints];
+    [self.contentView setNeedsLayout];
+    [self.contentView layoutIfNeeded];
+    
 }
 
 @end

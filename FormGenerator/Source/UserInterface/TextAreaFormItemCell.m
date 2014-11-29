@@ -11,8 +11,8 @@
 //http://stackoverflow.com/questions/18368567/uitableviewcell-with-uitextview-height-in-ios-7
 @implementation TextAreaFormItemCell
 #pragma mark - FormItemCell delegate
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
-    [super configureWithFormItem:aFormItem showInfo:NO delegate:aDelegate];
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem delegate:(id<FormItemCellDelegate>)aDelegate {
+    [super configureWithFormItem:aFormItem delegate:aDelegate];
     if ([aFormItem readonly]) {
         self.tvInput.editable = NO;
     }
@@ -25,7 +25,7 @@
 - (NSDictionary *)keyedValue {
     return @{kValidationKeyKey : [self bindingKey],
              kValidationValueKey : self.tvInput.text,
-             kIsValidKey : [NSNumber numberWithBool:self.valid]};
+             kShowInfoKey : [NSNumber numberWithBool:self.showInfoView]};
 }
 
 - (CGSize)calculateSize:(CGSize)parentSize {

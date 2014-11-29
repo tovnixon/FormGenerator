@@ -15,7 +15,7 @@
 @end
 
 @implementation AgreeFormItemCell
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem delegate:(id<FormItemCellDelegate>)aDelegate {
     
     self.bindingKey = [aFormItem bindingKey];
     self.dataSourceKey = [aFormItem key];
@@ -32,7 +32,7 @@
 }
 
 - (IBAction)switched:(id)sender {
-    [self.delegate cellValueChanged:self validationRequired:YES];
+    [self.delegate cellValueChanged:self];
 }
 
 - (NSDictionary *)keyedValue {
@@ -50,6 +50,7 @@
 }
 
 - (CGSize)calculateSize:(CGSize)parentSize {
+    return CGSizeMake(1, 120);
     return CGSizeMake(1, _singleLoad ? self.height : 120);
 }
 

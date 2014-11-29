@@ -16,28 +16,26 @@
 @implementation BoolFormItemCell
 
 - (IBAction)valueChanged:(id)sender {
-    [self.delegate cellValueChanged:self validationRequired:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self.delegate cellValueChanged:self];
+    });
+    
 }
 
 #pragma mark - FormItemCell delegate
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
-    [super configureWithFormItem:aFormItem showInfo:NO delegate:aDelegate];
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem delegate:(id<FormItemCellDelegate>)aDelegate {
+    [super configureWithFormItem:aFormItem delegate:aDelegate];
     if (aFormItem.readonly) {
         self.switcher.enabled = NO;
     }
-//    self.switcher.enabled = !aFormItem.readonly;
-    if (aFormItem.storedValue) {
-        [self.switcher setOn:[aFormItem.storedValue isEqualToString:@"true"] animated:YES];
-    } else {
-        [self.switcher setOn:[aFormItem.defaultValue isEqualToString:@"true"] animated:YES];
-    }
+
+    [self.switcher setOn:[[aFormItem getValue] boolValue] animated:YES];
 }
 
 - (NSDictionary *)keyedValue {
-    NSString * value = [self.switcher isOn] ? @"true" : @"false";
     return @{kValidationKeyKey : [self bindingKey],
-             kValidationValueKey : value,
-             kIsValidKey : [NSNumber numberWithBool:self.valid]};
+             kValidationValueKey : [NSNumber numberWithBool:self.switcher.on],
+             kShowInfoKey : [NSNumber numberWithBool:self.showInfoView]};
 }
 
 @end

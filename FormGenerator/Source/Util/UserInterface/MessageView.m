@@ -39,22 +39,27 @@
 }
 
 - (void)show {
-    [self silentShow];
+    if (!_isPresented) {
+        self.cnstrHeight.constant = 20;
+        _isPresented = YES;
+        [self.delegate didShow];
+    }
+
 }
 
 - (void)silentShow {
     if (!_isPresented) {
         self.cnstrHeight.constant = 20;
-        [self layoutIfNeeded];
+//        [self layoutIfNeeded];
         _isPresented = YES;
-        [self.delegate didShow];
+//        [self.delegate didShow];
     }
 }
 
 - (void)hide {
     if (_isPresented) {
         self.cnstrHeight.constant = 0;
-        [self layoutIfNeeded];
+//        [self layoutIfNeeded];
         _isPresented = NO;
         [self.delegate didHide];
     }
@@ -63,7 +68,7 @@
 - (void)silentHide {
     if (_isPresented) {
         self.cnstrHeight.constant = 0;
-        [self layoutIfNeeded];
+//        [self layoutIfNeeded];
         _isPresented = NO;
     }
 }

@@ -8,7 +8,7 @@
 
 #import "TextFieldFormItemCell.h"
 #import "FormItemProtocol.h"
-
+#import "FormItemDisplay.h"
 
 @interface TextFieldFormItemCell()
 
@@ -24,15 +24,15 @@
 
 #pragma mark - FormItemCell delegate
 
-- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem showInfo:(BOOL)shouldShow delegate:(id<FormItemCellDelegate>)aDelegate {
-    [super configureWithFormItem:aFormItem showInfo:shouldShow delegate:aDelegate];
-    self.txtInput.text = [aFormItem storedValue] ? [aFormItem storedValue] : [aFormItem defaultValue];
+- (void)configureWithFormItem:(id<FormItemProtocol>)aFormItem delegate:(id<FormItemCellDelegate>)aDelegate {
+    [super configureWithFormItem:aFormItem delegate:aDelegate];
+    self.txtInput.text = [aFormItem getValue];
 }
 
 - (NSDictionary *)keyedValue {
     return @{kValidationKeyKey : [self bindingKey],
              kValidationValueKey : self.txtInput.text,
-             kIsValidKey : [NSNumber numberWithBool:self.valid]};
+             kShowInfoKey : [NSNumber numberWithBool:self.showInfoView]};
 }
 
 #pragma mark - Textfield delegate
@@ -44,6 +44,6 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    [self.delegate cellValueChanged:self validationRequired:YES];
+    [self.delegate cellValueChanged:self];
 }
 @end

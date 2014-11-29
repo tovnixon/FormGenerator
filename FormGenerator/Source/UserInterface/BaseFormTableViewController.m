@@ -9,8 +9,9 @@
 #import "BaseFormTableViewController.h"
 #import "BaseFormDataSource.h"
 #import "FormItemProtocol.h"
+#import "SelectFormItemProtocol.h"
 @interface BaseFormTableViewController ()
-@property (nonatomic, strong) id <FormItemProtocol> selectableItem;
+@property (nonatomic, strong) id <SelectFormItemProtocol> selectableItem;
 #warning form item should be copy, not strong. So you nned to implement NSCopying for FormItem
 
 - (IBAction)submit:(id)sender;
@@ -29,6 +30,9 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(agreeValueChanged:) name:@"UserAgreeChangedNotification" object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellHeightChanged:) name:@"CellHeightChangedNotification" object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellContentChanged:) name:@"CellContentChangedNotification" object:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,6 +42,11 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
 
 - (BOOL)validateValues {
     return [self.dataSource validateValuesIn:self.tableView];
+}
+
+- (void)cellContentChanged:(NSNotification *)notification {
+    [self.tableView reloadData];
+    NSLog(@"cellContentChanged");
 }
 
 - (void)cellHeightChanged:(NSNotification *)notification {
@@ -73,6 +82,7 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
 
 - (IBAction)submit:(id)sender {
     if ([self validateValues]) {
+        [self.tableView reloadData];
         NSString * xml = [self.dataSource xmlString];
         NSLog(@"result xml = %@", xml);
         [self.delegate formController:self didSubmitForm:xml];
@@ -103,7 +113,7 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
 - (void)controller:(id)controller didFinishWithOptions:(NSArray *)options {
 #warning TODO: refactor (wrap logic to model)
     [self.navigationController popToRootViewControllerAnimated:YES];
-    if (self.selectableItem.type == FormItemTypeMultipleSelection) {
+    if ([self.selectableItem.type isEqualToString:FormItemTypeMultipleSelection]) {
         self.selectableItem.storedValues = options;
     } else {
         self.selectableItem.storedValue = options.count > 0 ? [options objectAtIndex:0] : nil;
@@ -118,10 +128,10 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
     if ([segue.identifier isEqualToString:formItemOptionsSegue]) {
         FormItemSelectionTableViewController * optionsVC = segue.destinationViewController;
 #warning TODO: refactor (wrap logic to model)
-        BOOL multipleSelection = self.selectableItem.type == FormItemTypeMultipleSelection;
+        BOOL multipleSelection = [self.selectableItem.type isEqualToString:FormItemTypeMultipleSelection];
         NSArray * selected = multipleSelection ? self.selectableItem.storedValues :
         @[self.selectableItem.storedValue ? self.selectableItem.storedValue : @""];
-        [optionsVC configure:self.selectableItem.selectionOptions title:self.selectableItem.name selected:selected multiple:multipleSelection];
+        [optionsVC configure:self.selectableItem.options title:self.selectableItem.name selected:selected multiple:multipleSelection];
         optionsVC.delegate = self;
         
     }

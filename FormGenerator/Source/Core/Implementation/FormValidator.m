@@ -57,10 +57,10 @@
         for (NSArray * section in formItems) {
             for (id <FormItemProtocol>formItem in section) {
                 //skip readonly fields
-                if (formItem.type == FormItemTypeLabel ||
-                    formItem.type == FormItemTypeAgree ||
-                    formItem.type == FormItemTypeDescription ||
-                    formItem.type == FormItemTypeNestedGroup)
+                if ([formItem.type isEqualToString:FormItemTypeLabel] ||
+                    [formItem.type isEqualToString:FormItemTypeAgree] ||
+                    [formItem.type isEqualToString:FormItemTypeDescription] ||
+                    [formItem.type isEqualToString:FormItemTypeNestedGroup])
                     continue;
                 NSString * key = [formItem bindingKey];
                 //specific regex
@@ -68,14 +68,19 @@
                 [self addPattern:pattern forKey:key description:@"Input value have invalid format"];
                 //max length
                 if ([formItem.maxLength integerValue] > 0 &&
-                    (formItem.type == FormItemTypeText || formItem.type == FormItemTypeTextArea)) {
+                    ([formItem.type isEqualToString:FormItemTypeText] || [formItem.type isEqualToString:FormItemTypeTextArea])) {
                     NSNumber * maxLength = formItem.maxLength;
                     NSString * maxLengthPattern = [NSString stringWithFormat:@"^.{0,%d}$", [maxLength integerValue]];
                     [self addPattern:maxLengthPattern forKey:key description:[NSString stringWithFormat:@"Max length for this field is %d", [maxLength integerValue]]];
                 }
                 //mandatory
                 //by default all fields are mandatory
+                
                 if (!formItem.optional) {
+                    if (key == nil) {
+                        NSLog(@"sd");
+                    }
+
                     NSString * notEmptyPattern = @"^.{1,2049}$";
                     [self addPattern:notEmptyPattern forKey:key description:@"The field is mandatory"];
                 }

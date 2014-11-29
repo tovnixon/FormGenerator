@@ -8,6 +8,7 @@
 
 #import "BaseForm.h"
 #import "BaseFormItem.h"
+#import "SelectFormItem.h"
 #import "MappingPair.h"
 #import "BaseFormItem+Protected.h"
 #import "DDXMLDocument.h"
@@ -16,6 +17,7 @@ static NSString * formSerializationKeyRoot = @"form";
 
 static NSString * formSerializationKeyFormID = @"formID";
 static NSString * formSerializationKeyFields = @"fields";
+static NSString * formSerializationKeyPages = @"pages";
 static NSString * formSerializationKeyAsynch = @"isAsync";
 static NSString * formSerializationKeyAgreeText = @"agreeText";
 static NSString * formSerializationKeyTitle = @"title";
@@ -27,6 +29,7 @@ static NSString * formSerializationKeyCancelButton = @"cancelButton";
 
 //  keys presenting actual class properties, can be used via KVC
 static NSString * formPropertyKeyFormID = @"formID";
+static NSString * formPropertyKeyPages = @"pages";
 static NSString * formPropertyKeyFields = @"items";
 static NSString * formPropertyKeyAsynch = @"async";
 static NSString * formPropertyKeyAgreeText = @"agreeText";
@@ -43,7 +46,7 @@ static NSString * formPropertyKeyCancelButton = @"cancelButton";
 @property (nonatomic, copy) NSString * formID;
 @property (nonatomic) FormStyle        formStyle;
 @property (nonatomic, copy) NSArray  * items;
-
+@property (nonatomic, copy) NSArray  * pages;
 @end
 
 @implementation BaseForm
@@ -71,14 +74,21 @@ static NSString * formPropertyKeyCancelButton = @"cancelButton";
     // look for root element, it's 'form' for now
     NSDictionary * dict = [dictionary valueForKey:formSerializationKeyRoot];
     for (MappingPair * mapPair in self.maping) {
-        // map mathing
-        if ([mapPair.keyFrom isEqualToString:formSerializationKeyFields]) {
-            // specific case with array of itmes
+        // map matching
+        if ([mapPair.keyFrom isEqualToString:formSerializationKeyPages]) {
+            NSArray * pages = [dict objectForKey:mapPair.keyFrom];
+            int pageNumber = 0;
             NSMutableArray * items = [NSMutableArray new];
-            NSArray * itemDictionaries = [dict objectForKey:mapPair.keyFrom];
-            for (NSDictionary * itemDictionary in itemDictionaries) {
-                BaseFormItem * fi = [[BaseFormItem alloc] initWithDictionary:itemDictionary];
-                [items addObject:fi];
+            for (NSDictionary * page  in pages) {
+                // specific case with array of itmes
+                NSArray * itemDictionaries = [page objectForKey:formSerializationKeyFields];
+                for (NSDictionary * itemDictionary in itemDictionaries) {
+                    Class fiClass = [[FormItemTypes2Classes sharedInstance] formItemClassByType:[itemDictionary valueForKey:formItemSerializationKeyType]];
+                    id fi = [[fiClass alloc] initWithDictionary:itemDictionary];
+                    [fi setValue:[[NSNumber numberWithInt:pageNumber] stringValue] forKey:@"pageId"];
+                    [items addObject:fi];
+                }
+                pageNumber++;
             }
             self.items = [NSArray arrayWithArray:items];
         } else {
@@ -99,6 +109,7 @@ static NSString * formPropertyKeyCancelButton = @"cancelButton";
 
     self.maping = @[[MappingPair pairKey:formSerializationKeyFormID to:formPropertyKeyFormID],
                     [MappingPair pairKey:formSerializationKeyFields to:formPropertyKeyFields],
+                    [MappingPair pairKey:formSerializationKeyPages to:formPropertyKeyPages],
                     [MappingPair pairKey:formSerializationKeyAsynch to:formPropertyKeyAsynch],
                     [MappingPair pairKey:formSerializationKeyAgreeText to:formPropertyKeyAgreeText],
                     [MappingPair pairKey:formSerializationKeyTitle to:formPropertyKeyTitle],

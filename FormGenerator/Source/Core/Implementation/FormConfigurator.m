@@ -8,6 +8,7 @@
 
 #import "FormConfigurator.h"
 #import "BaseFormItem.h"
+#import "GroupFormItem.h"
 #import "BaseFormItem+Protected.h"
 #import "BaseForm+Protected.h"
 @interface FormConfigurator()
@@ -29,73 +30,102 @@
 }
 
 - (void)configureForDispayingInTableView {
-    NSMutableArray * array = [NSMutableArray new];
     //add header item, form description
     
     if (self.form.formDescription) {
-        id <FormItemProtocol> descriptionItem = [[BaseFormItem alloc] initWithType:FormItemTypeDescription name:@"Description" value:self.form.formDescription description:nil];
-        descriptionItem.validatable = NO;
+        id <FormItemProtocol> descriptionItem = [[BaseFormItem alloc] initWithType:FormItemTypeDescription name:@"Description" value:self.form.formDescription description:nil pageId:nil];
         [self.items addObject:@[descriptionItem]];
     }
-    //add all fields
-    for (id <FormItemProtocol> item in self.form.items) {
-        if (item.type == FormItemTypeNestedGroup) {
-            [self.items addObject:[array copy]];
-            [array removeAllObjects];
+    NSMutableArray * destinationItems = [@[] mutableCopy];
+    [self linearItemsFromArray:self.form.items toArray:destinationItems parentKey:nil];
+    [self.items addObject:[NSArray arrayWithArray:destinationItems]];
+    
+    if (self.form.agreeText) {
+        id <FormItemProtocol> descriptionItem = [[BaseFormItem alloc] initWithType:FormItemTypeAgree name:@"Agreee" value:self.form.agreeText description:nil pageId:nil];
+        [self.items addObject:@[descriptionItem]];
+    }
+}
+
+- (void)linearItemsFromArray:(NSArray *)source toArray:(NSMutableArray *)destination parentKey:(NSString *)parentKey{
+    for (id <FormItemProtocol> item in source) {
+        if ([item conformsToProtocol:@protocol(GroupFormItemProtocol)]) {
+            GroupFormItem * groupHeader = [[GroupFormItem alloc] initWithType:item.type name:item.name value:item.label description:item.itemDescription pageId:nil];
+            groupHeader.parentKey = parentKey;
+            [groupHeader setSubItems:[(GroupFormItem *)item subItems]];
+            [destination addObject:groupHeader];
             
-            //create label item from item and add it
-            BaseFormItem * groupHeader = [[BaseFormItem alloc] initWithType:FormItemTypeNestedGroup name:item.name value:item.label description:item.itemDescription];
-            for (id <FormItemProtocol> subItem in item.subItems) {
-                subItem.parentKey = groupHeader.key;
-                [groupHeader.children addObject:subItem.key];
-                [array addObject:subItem];
-            }
-            [array insertObject:groupHeader atIndex:0];
-            //
-            [self.items addObject:[array copy]];
-            [array removeAllObjects];
+            [self linearItemsFromArray:[(GroupFormItem *)item subItems]  toArray:destination parentKey:groupHeader.key];
         } else {
-            [array addObject:item];
+            if (parentKey) {
+                item.parentKey = parentKey;
+            }
+            [destination addObject:item];
         }
     }
-    
-    [self.items addObject:[array copy]];
-    [array removeAllObjects];
-    //add agree text
-    if (self.form.agreeText) {
-        id <FormItemProtocol> descriptionItem = [[BaseFormItem alloc] initWithType:FormItemTypeAgree name:@"Agreee" value:self.form.agreeText description:nil];
-        descriptionItem.validatable = NO;
-        [self.items addObject:@[descriptionItem]];
-    }
-
 }
 
 - (NSArray *)structuredItemsFrom:(NSArray *)linearItems {
     NSMutableArray * result = [NSMutableArray new];
-    for (NSArray * section in linearItems) {
-        for (id<FormItemProtocol> item in section) {
-            if (item.type == FormItemTypeNestedGroup) {
-                //root object
-                NSMutableArray * subItems = [NSMutableArray arrayWithArray:section];
-                [subItems removeObjectAtIndex:0];
-                item.subItems = subItems;
-                break;
+    for (id<FormItemProtocol> item in linearItems) {
+        if ([item respondsToSelector:@selector(subItems)]) {
+            NSArray * linearSubItems = [self itemsWithParent:[item key] fromArray:linearItems];
+            if ([self array:linearSubItems containsItemsResponded:@selector(subItems)]) {
+                [self structuredItemsFrom:linearSubItems];
             } else {
-                [result addObject:item];
+                
+                if (linearSubItems.count) {
+                    //very deep level of tree
+                    [(id<GroupFormItemProtocol>)item setSubItems:linearSubItems];
+                    
+                }
+                //remove linear sub items and linearitems
             }
+        } else {
+            [result addObject:item];
         }
     }
-    //remove form description
-    [result removeObjectAtIndex:0];
-    //remove agree text
-    [result removeLastObject];
     return [NSArray arrayWithArray:result];
 }
 
+- (BOOL)array:(NSArray *)array containsItemsResponded:(SEL)selector {
+    for (id <FormItemProtocol> item in array) {
+        if ([item respondsToSelector:selector])
+            return YES;
+    }
+    return NO;
+}
+
+- (id<FormItemProtocol>)itemByKey:(NSString *)key fromArray:(NSArray *)array {
+    for (id<FormItemProtocol> item in array) {
+        if ([item.key isEqualToString:key])
+            return item;
+    }
+    return nil;
+
+}
+- (NSArray *)itemsWithParent:(NSString *)parentKey fromArray:(NSArray *)array {
+    NSMutableArray * result = [@[] mutableCopy];
+    for (id<FormItemProtocol> item in array) {
+        if ([item.parentKey isEqualToString:parentKey]) {
+            [result addObject:item];
+        }
+    }
+    return result;
+}
 
 - (NSString *)xmlStringWithItems:(NSArray *)linearItems {
+    NSMutableArray * structuredItems = [@[] mutableCopy];
+
+    //enumerate sections
     
-    NSArray * structuredItems = [self structuredItemsFrom:linearItems];
+    //remove duplication
+    for (NSArray * section in linearItems) {
+        for (id<FormItemProtocol> item in section) {
+            if (![item hasParent])
+                [structuredItems addObject:item];
+        }
+    }
+
     id <FormProtocol> newForm = [[BaseForm alloc] initWithForm:self.form withItems:structuredItems];
     NSString * result = [newForm xmlString];
     return result;

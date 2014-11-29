@@ -7,6 +7,7 @@
 //
 
 #import "BaseFormItemOptionTableViewController.h"
+#import "FormItemOption.h"
 @interface BaseFormItemOptionTableViewController()
 @end
 
@@ -39,7 +40,7 @@ static NSString * cellIdentifier = @"FormItemOptionCell";
 - (NSArray *)resultSelection {
     NSMutableArray * result = [NSMutableArray new];
     for (NSIndexPath * index in self.selectedIndexes) {
-        NSString * value = self.options[index.row];
+        FormItemOption * value = self.options[index.row];
         [result addObject:value];
     }
     return [NSArray arrayWithArray:result];
@@ -61,8 +62,8 @@ static NSString * cellIdentifier = @"FormItemOptionCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    NSString * option = self.options[indexPath.row];
-    cell.textLabel.text = option;
+    FormItemOption * option = self.options[indexPath.row];
+    cell.textLabel.text = [option displayTitle];
     cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22];
     if ([self.selectedOptions containsObject:option]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;

@@ -27,8 +27,6 @@
 
 @property (nonatomic, strong) NSMutableDictionary * cellClasses;
 @property (nonatomic, strong) NSArray * items;
-@property (nonatomic, strong) NSMutableSet * itemsWithInfo;
-@property (nonatomic, strong) NSMutableDictionary * textViews;
 @property (nonatomic) FormValidator * validator;
 @property (nonatomic) FormConfigurator * configurator;
 @end
@@ -39,8 +37,6 @@
     self = [super init];
     if (self) {
         self.cellClasses = [@{} mutableCopy];
-        self.itemsWithInfo = [NSMutableSet new];
-        self.textViews = [@{} mutableCopy];
         if ([aForm conformsToProtocol:@protocol(FormProtocol)]) {
             self.cancelTitle = aForm.cancelButton;
             self.submitTitle = aForm.submitButton;
@@ -55,8 +51,8 @@
 
 - (BOOL)shouldSelectCellAtIndexPath:(NSIndexPath *)indexPath {
     id <FormItemProtocol> formItem = [self.items[indexPath.section] objectAtIndex:indexPath.row];
-    return (formItem.type == FormItemTypeSingleSelection ||
-            formItem.type == FormItemTypeMultipleSelection);
+    return ([formItem.type isEqualToString:FormItemTypeSingleSelection] ||
+            [formItem.type isEqualToString:FormItemTypeMultipleSelection]);
 }
 
 - (id<FormItemProtocol>)itemForCellByIndexPath:(NSIndexPath *)indexPath {
@@ -100,32 +96,31 @@
 }
 
 #pragma mark - FormItemCell delegate
-- (void)cellValueChanged:(id<FormItemCellProtocol>)cell validationRequired:(BOOL)shouldValidate {
+- (void)cellValueChanged:(id<FormItemCellProtocol>)cell {
     id <FormItemProtocol> item = [self itemByKey:[cell dataSourceKey]];
     //set value from user input to model
     NSDictionary * dict = [cell keyedValue];
-    item.storedValue = [dict valueForKey:kValidationValueKey];
-    NSNumber * valid = [dict valueForKey:kIsValidKey];
-    item.valid = [valid boolValue];
-    
-    if (shouldValidate) {
-        [self validateCell:cell];
-    } else {
-    }
-    
-    if (item.type == FormItemTypeAgree) {
+    [item setShouldValidate:YES];
+    [item setValue:[dict valueForKey:kValidationValueKey]];
+    [item setDisplayErrorMessage:[[dict valueForKey:kShowInfoKey] boolValue]];
+
+    if ([item.type isEqualToString:FormItemTypeAgree]) {
+        for (NSArray * sections in self.items) {
+            for (id<FormItemProtocol> item in sections) {
+                [item setShouldValidate:YES];
+            }
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"UserAgreeChangedNotification" object:nil
                                                           userInfo:dict];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"CellContentChangedNotification" object:nil
+                                                          userInfo:dict];
+    
     }
 }
 
 - (void)heightChangedInCell:(id<FormItemCellProtocol>)cell grow:(BOOL)grow {
    id <FormItemProtocol> item = [self itemByKey:[cell dataSourceKey]];
-    if (grow)
-        [self.itemsWithInfo addObject:item];
-    else {
-        [self.itemsWithInfo removeObject:item];
-    }
     NSIndexPath * ipToReload = [self indexPathForItemByKey:[cell dataSourceKey]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CellHeightChangedNotification" object:nil
                                                       userInfo:@{@"item" : ipToReload}];
@@ -137,47 +132,15 @@
 }
 
 #pragma mark - Validation
-- (BOOL)validateCell:(id<FormItemCellProtocol>)cell {
-    __block BOOL valid = YES;
-    __block NSString * message;
-    NSDictionary * dict = [cell keyedValue];
-    NSLog(@"Answer: %@", dict);
-    NSString * key = [dict objectForKey:kValidationKeyKey];
-    NSString * value = [dict objectForKey:kValidationValueKey];
-    id <FormItemProtocol> item = [self itemByKey:[cell dataSourceKey]];
-    if (item.type == FormItemTypeDescription ||
-        item.type == FormItemTypeAgree) {
-        return YES;
-    }
-    [self.validator validateValue:value forKey:key result:^(NSString *errorMessage, BOOL success) {
-        valid = success;
-        message = errorMessage;
-    }];
-    item.valid = valid;
-    item.errorMessage = message;
-    [cell updateValidationInfo:message valid:valid];
-//    NSIndexPath * ipToReload = [self indexPathForItemByKey:[cell dataSourceKey]];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"CellHeightChangedNotification" object:nil
-//                                                      userInfo:@{@"item" : ipToReload}];
-   
-    return valid;
-}
-
 - (BOOL)validateValuesIn:(UITableView *)tableView {
-    __block BOOL valid = YES;
-    _shouldValidateAllCells = YES;
     for (NSArray * section in self.items) {
         for (id<FormItemProtocol> formItem in section) {
-            NSString * value = formItem.storedValue ? formItem.storedValue : formItem.defaultValue;
-            [self.validator validateValue:value forKey:[formItem bindingKey] result:^(NSString *errorMessage, BOOL success) {
-                //one fail result is enough
-                if (!success && valid) {
-                    valid = NO;
-                }
-            }];
+            //one fail result is enough
+            if (![formItem isValid])
+                return NO;
         }
     }
-    return valid;
+    return YES;
 }
 
 - (NSString *)xmlString {
@@ -185,22 +148,6 @@
 }
 
 #pragma mark - cell height
-
-- (CGFloat)textViewHeightForRowAtIndexPath: (NSIndexPath*)indexPath {
-    id <FormItemProtocol> item = self.items[indexPath.section][indexPath.row];
-
-    UITextView *calculationView = [self.textViews objectForKey: indexPath];
-    CGFloat textViewWidth = calculationView.frame.size.width;
-    if (!calculationView.text) {
-        // This will be needed on load, when the text view is not inited yet
-        
-        calculationView = [[UITextView alloc] init];
-        calculationView.text = [item storedValue] ? [item storedValue] : [item defaultValue]; // get the text from your datasource add attributes and insert here
-        textViewWidth = 200; // Insert the width of your UITextViews or include calculations to set it accordingly
-    }
-    CGSize size = [calculationView sizeThatFits:CGSizeMake(textViewWidth, FLT_MAX)];
-    return size.height;
-}
 
 - (CGFloat)heightForBasicCellAtIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)tableView {
     id <FormItemProtocol> item = self.items[indexPath.section][indexPath.row];
@@ -218,17 +165,18 @@
         [self.cellClasses setObject:sizingCell forKey:identifier];
     }
     
-    BOOL shoulShowInfo = [self.itemsWithInfo containsObject:item];
-    [sizingCell configureWithFormItem:item showInfo:shoulShowInfo delegate:nil];
+    [sizingCell configureWithFormItem:item delegate:nil];
     [sizingCell layoutIfNeeded];
-    if (item.type == FormItemTypeTextArea ||
-        item.type == FormItemTypeDescription |
-        item.type == FormItemTypeAgree) {
+
+    if ([item.type isEqualToString:FormItemTypeTextArea] ||
+        [item.type isEqualToString:FormItemTypeDescription] ||
+        [item.type isEqualToString:FormItemTypeAgree]) {
         CGSize s = [sizingCell calculateSize:CGSizeZero];
         return s.height + 1;
     }
+
     CGFloat height = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-    NSLog(@"%2.0f", height);
+//    NSLog(@"%2.0f", height);
     return height + 1;
 }
 
@@ -248,20 +196,14 @@
     UITableViewCell <FormItemCellProtocol> *cell = [[FormItemCellFactory defaultFactory] cellWithFormItem:formItem forTableView:tableView];
     //TODO:
     //remove cell separator for group items
-    BOOL shoulShowInfo = [self.itemsWithInfo containsObject:formItem];
-
-    [cell configureWithFormItem:formItem showInfo:shoulShowInfo delegate:self];
+    [cell configureWithFormItem:formItem delegate:self];
     cell.delegate = self;
-    if (formItem.type == FormItemTypeTextArea) {
-        [self.textViews setObject:[(TextAreaFormItemCell *)cell tvInput] forKey:indexPath];
-    }
     
-    if (_shouldValidateAllCells) {
-        [self validateCell:cell];
-    }
     [cell setNeedsUpdateConstraints];
     [cell updateConstraintsIfNeeded];
-
+    if (cell == nil) {
+        NSLog(@"dasd");
+    }
     return cell;
 }
 

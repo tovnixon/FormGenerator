@@ -28,14 +28,17 @@
         Class groupHeaderCellClass = [GroupHeaderItemCell class];
         Class agreeCellClass = [AgreeFormItemCell class];
         Class descriptionCellClass = [FormDescriptionCell class];
-        self.classesByItemType = @{@(FormItemTypeLabel):[NSSet setWithObject:labelCellClass],
-                                   @(FormItemTypeNestedGroup):[NSSet setWithObject:groupHeaderCellClass],
-                                   @(FormItemTypeText):[NSSet setWithObject:textfieldCellClass],
-                                   @(FormItemTypeTextArea):[NSSet setWithObject:textviewCellClass],
-                                   @(FormItemTypeSingleSelection):[NSSet setWithObject:singleSelectionCellClass],
-                                   @(FormItemTypeAgree):[NSSet setWithObject:agreeCellClass],
-                                   @(FormItemTypeDescription):[NSSet setWithObject:descriptionCellClass],
-                                   @(FormItemTypeCheckBox):[NSSet setWithObject:boolCellClass]};
+        self.classesByItemType = @{FormItemTypeLabel:[NSSet setWithObject:labelCellClass],
+                                   FormItemTypeNestedGroup:[NSSet setWithObject:groupHeaderCellClass],
+                                   FormItemTypeText:[NSSet setWithObject:textfieldCellClass],
+                                   FormItemTypeTextArea:[NSSet setWithObject:textviewCellClass],
+                                   FormItemTypeSingleSelection:[NSSet setWithObject:singleSelectionCellClass],
+                                   FormItemTypeSingleSelectionSmart:[NSSet setWithObject:labelCellClass],
+                                   FormItemTypeAgree:[NSSet setWithObject:agreeCellClass],
+                                   FormItemTypeDescription:[NSSet setWithObject:descriptionCellClass],
+                                   FormItemTypeCheckBox:[NSSet setWithObject:boolCellClass],
+                                   FormItemTypeConverter:[NSSet setWithObject:labelCellClass],
+                                   FormItemTypeArray:[NSSet setWithObject:groupHeaderCellClass]};
     }
     return self;
 }
@@ -50,7 +53,7 @@
 }
 
 - (Class)cellClassForFormItem:(id <FormItemProtocol>)formItem {
-    NSMutableSet *set = [NSMutableSet setWithSet:[self.classesByItemType objectForKey:@(formItem.type)]];
+    NSMutableSet *set = [NSMutableSet setWithSet:[self.classesByItemType objectForKey:formItem.type]];
     return [set anyObject];
 }
 

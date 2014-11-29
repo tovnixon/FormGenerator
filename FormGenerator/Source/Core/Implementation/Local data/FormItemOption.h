@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FormItemOption : NSObject
-
+@interface FormItemOption : NSObject <NSCopying>
+@property (nonatomic, copy, readonly) NSString * title;
 @property (nonatomic, copy, readonly) NSString * value;
-+ (id)optionWithString:(NSString *)string;
-
++ (id)optionWithTitle:(NSString *)aTitle value:(NSString *)aValue;
+- (NSString *)displayTitle;
 @end

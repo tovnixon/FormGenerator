@@ -1,58 +1,120 @@
-{"form":{
-    "formID": "creditlimit01",
-    "formStyle": "1",
-    "xmlDocType": "setcreditlimit",
-    "title": "Кредитный лимит",
-    "description": "Reitumu предлагает Вам овердрафт без обеспечения на Ваши кредитные карты. <a href=\"http://www.rietumu.ru/cards-faq\">Правила и условия использования овердрафта</a> по карточному счёту.",
-    "isAsync": true,
-    "fields": [
-               {
-               "name":"selection",
-               "type":"3",
-               "label":"Согласен на кредитный лимитСогласен на кредитный л",
-               "enums":["value 1", "value 2", "value 3"],
-               "description":"Желаемая Вами сумма кредитного лимита. Не может превышать общую сумму предоставленного лимита"
-               },
+{
+    "code": 0,
+    "error": "",
+    "form": {
+        "formID": "overdraft01",
+        "formStyle": "1",
+        "xmlDocType": "setOverdraft",
+        "title": "Заявление на овердрафт",
+        "description": "AS  информации об овердрафте на <a href=",
+        "isAsync": false,
+        "pages":[
+                 {
+                 "fields": [
+                            {
+                            "name":"customerName",
+                            "type":"string",
+                            "label":"Клиент",
+                            "isReadOnly":true,
+                            "defaultValue": "TEST CUSTOMER LLC"
+                            },
+                            {
+                            "name":"overdraftScored",
+                            "type":"text",
+                            "label":"Предлагаемый овердрафт овердрафтович овердрыщенко",
+                            "isReadOnly":true,
+                            "description":"Включить автоматическое пополнениеВключить автоматическое пополнениеВключить автоматическое пополнение Включить автоматическое пополнение end",
+                            "defaultValue": "7500 EUR"
+                            },
+                            {
+                            "name":"autoReplenishment",
+                            "type":"group",
+                            "label":"Постоянное пополнение карточного счёта",
+                            "isCollapsable":true,
+                            "isCollapsed":true,
+                            "fields":[
+                                      {
+                                      "name":"enableAutoReplenishment",
+                                      "label":"Включить автоматическое пополнение",
+                                      "defaultValue":true,
+                                      "type":"checkbox"
+                                      },
+                                      {
+                                      "name":"autoReplenishment3",
+                                      "type":"group",
+                                      "label":"Постоянное пополнение карточного счёта",
+                                      "isCollapsable":true,
+                                      "isCollapsed":true,
+                                      "fields":[
+                                                {
+                                                "name":"enableAutoReplenishmentBox",
+                                                "label":"Включить автоматическое пополнение",
+                                                "type":"checkbox",
+                                                "defaultValue":false
+                                                },
+                                                {
+                                                "name":"replenishDay2",
+                                                "type":"radio",
+                                                "label":"Платежи на карточный счёт производить",
+                                                "enums":["first woking day","last working day"],
+                                                "labels":["в первый рабочий день месяца","в последний рабочий день месяца"]
+                                                }
+                                                ]
+                                      },
+                                      {
+                                      "name":"autoReplenishment4",
+                                      "type":"group",
+                                      "label":"Постоянное пополнение карточного счёта",
+                                      "isCollapsable":true,
+                                      "isCollapsed":true,
+                                      "fields":[
+                                                {
+                                                "name":"enableAutoReplenishmentBox",
+                                                "label":"Включить автоматическое пополнение",
+                                                "type":"checkbox",
+                                                "defaultValue":false
+                                                },
+                                                {
+                                                "name":"autoReplenishment5",
+                                                "type":"group",
+                                                "label":"Постоянное пополнение карточного счёта",
+                                                "isCollapsable":true,
+                                                "isCollapsed":true,
+                                                "fields":[
+                                                          {
+                                                          "name":"replenishDay2",
+                                                          "type":"radio",
+                                                          "label":"Платежи на карточный счёт производить",
+                                                          "enums":["first woking day","last working day"],
+                                                          "labels":["в первый рабочий день месяца","в последний рабочий день месяца"]
+                                                          }
+                                                          ]
+                                                },
 
-               {
-               "name": "finInfo",
-               "type": "8",
-               "label": "Информация о клиенте-финансовом учереждении елаемая Вами сумма кредитного лимита.а",
-               "description":"Желаемая Вами сумма кредитного лимита. Не может превышать общую сумму предоставленного лимита",
-               
-               "fields": [
-                          {
-                          "name": "fatcaState",
-                          "type": "1",
-                          "label": "Test",
-                          "defaultValue":"ssadfsdfsdf",
-                          "description": "Укажите официальный статус на английском языке",
-                          "maxLength": "10",
-                          "helpText":"some info"
-                          },
-                          {
-                          "name": "fatcaGIIN",
-                          "type": "6",
-                          "defaultValue":"true",
-                          "description": "Укажите официальный статус на английском языке",
-                          "label": " о клиенте-фин превышать общую суммукредитного лимита. Не может пр"
-                          },
-                          {
-                          "name": "fatcaNoGIIN",
-                          "type": "2",
-                          "readonly": false,
-                          "label": "Если нет GIIN, то причины отсутствия у финансового учреждения GIIN",
-                          "defaultValue":"ация о клиенте-финансовом учереждении елаемая Вами сумма о лимитаелаемая Вами сумма кредитного лимита.",
-                          "description": "Укажите официальный статус на английском языке"
-                          }
-                          ]
-               },
+                                                {
+                                                "name":"replenishDay2",
+                                                "type":"radio",
+                                                "label":"Платежи на карточный счёт производить",
+                                                "enums":["first woking day","last working day"],
+                                                "labels":["в первый рабочий день месяца","в последний рабочий день месяца"]
+                                                }
+                                                ]
+                                      },
 
-             
-
-    ],
-	"agreeText": "С условиями <a href=\"http://www.rietumu.lv/documents/russian/acc/rules-bank_rus.pdf\">\"Правил договора АО \"Rietumu Banka\" и Клиента\"</a> и <a href=\"http://www.rietumu.ru/fees-cards\">тарифами Банка</a> согласен.",
-    "submitButton": "На подпись",
-    "cancelButton": "Отмена"
-}
+                                      {
+                                      "name":"replenishDay",
+                                      "type":"radio",
+                                      "label":"Платежи на карточный счёт производить",
+                                      "enums":["first woking day","last working day"],
+                                      "labels":["в первый рабочий день месяца","в последний рабочий день месяца"]
+                                      }
+                                      ]
+                            }
+                            
+                            ]
+                 }
+                 ],
+        "agreeText": "С условласен.",
+        "submitButton": "На подпись"
+    }
 }
