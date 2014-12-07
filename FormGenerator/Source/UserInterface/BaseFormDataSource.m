@@ -17,6 +17,7 @@
 #import "FormDescriptionCell.h"
 #import "TextAreaFormItemCell.h"
 
+#define EnableCellHeigthCash
 @interface BaseFormDataSource() {
     BOOL _shouldValidateAllCells;
     BOOL _allCellsAreValid;
@@ -26,6 +27,7 @@
 @property (nonatomic, copy) NSString * submitTitle;
 
 @property (nonatomic, strong) NSMutableDictionary * cellClasses;
+@property (nonatomic, strong) NSMutableDictionary * cellHeigthCash;
 @property (nonatomic, strong) NSArray * items;
 @property (nonatomic) FormValidator * validator;
 @property (nonatomic) FormConfigurator * configurator;
@@ -37,6 +39,7 @@
     self = [super init];
     if (self) {
         self.cellClasses = [@{} mutableCopy];
+        self.cellHeigthCash = [NSMutableDictionary new];
         if ([aForm conformsToProtocol:@protocol(FormProtocol)]) {
             self.cancelTitle = aForm.cancelButton;
             self.submitTitle = aForm.submitButton;
@@ -113,19 +116,13 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"UserAgreeChangedNotification" object:nil
                                                           userInfo:dict];
     } else {
+        [self.cellHeigthCash removeObjectForKey:[item bindingKey]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"CellContentChangedNotification" object:nil
-                                                          userInfo:dict];
+                                                          userInfo:@{@"Cell" : cell}];
     
     }
 }
 
-- (void)heightChangedInCell:(id<FormItemCellProtocol>)cell grow:(BOOL)grow {
-   id <FormItemProtocol> item = [self itemByKey:[cell dataSourceKey]];
-    NSIndexPath * ipToReload = [self indexPathForItemByKey:[cell dataSourceKey]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CellHeightChangedNotification" object:nil
-                                                      userInfo:@{@"item" : ipToReload}];
-    
-}
 
 - (void)accessoryTappedInCell:(id<FormItemCellProtocol>)cell {
     
@@ -151,9 +148,26 @@
 
 - (CGFloat)heightForBasicCellAtIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)tableView {
     id <FormItemProtocol> item = self.items[indexPath.section][indexPath.row];
+#ifdef EnableCellHeigthCash
+    NSNumber * cellHeight = self.cellHeigthCash[[item bindingKey]];
+    if (cellHeight != nil) {
+        return [cellHeight floatValue];
+    } else {
+
+    }
+#endif
+    CGFloat height = [self calculateForCellAtPath:indexPath inTableView:tableView];
+//    NSLog(@"%2.0f", height);
+#ifdef EnableCellHeigthCash
+    self.cellHeigthCash[[item bindingKey]] = @(height);
+#endif
+    return height;
+}
+
+- (CGFloat)calculateForCellAtPath:(NSIndexPath *)indexPath inTableView:(UITableView *)tableView {
+    id <FormItemProtocol> item = self.items[indexPath.section][indexPath.row];
     static UITableViewCell <FormItemCellProtocol> * sizingCell = nil;
-
-
+    
     Class clazz = [[FormItemCellFactory defaultFactory] cellClassForFormItem:item];
     NSString * identifier = NSStringFromClass(clazz);
     
@@ -167,17 +181,16 @@
     
     [sizingCell configureWithFormItem:item delegate:nil];
     [sizingCell layoutIfNeeded];
-
-    if ([item.type isEqualToString:FormItemTypeTextArea] ||
-        [item.type isEqualToString:FormItemTypeDescription] ||
+    
+    if ([item.type isEqualToString:FormItemTypeDescription] ||
         [item.type isEqualToString:FormItemTypeAgree]) {
         CGSize s = [sizingCell calculateSize:CGSizeZero];
         return s.height + 1;
     }
-
+    
     CGFloat height = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-//    NSLog(@"%2.0f", height);
-    return height + 1;
+    height += 1;
+    return height;
 }
 
 #pragma mark - Table view data source

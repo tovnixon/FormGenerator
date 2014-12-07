@@ -50,16 +50,13 @@
 - (void)silentShow {
     if (!_isPresented) {
         self.cnstrHeight.constant = 20;
-//        [self layoutIfNeeded];
         _isPresented = YES;
-//        [self.delegate didShow];
     }
 }
 
 - (void)hide {
     if (_isPresented) {
         self.cnstrHeight.constant = 0;
-//        [self layoutIfNeeded];
         _isPresented = NO;
         [self.delegate didHide];
     }
@@ -68,7 +65,6 @@
 - (void)silentHide {
     if (_isPresented) {
         self.cnstrHeight.constant = 0;
-//        [self layoutIfNeeded];
         _isPresented = NO;
     }
 }

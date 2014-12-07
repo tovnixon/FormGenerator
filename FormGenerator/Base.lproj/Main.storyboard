@@ -176,15 +176,8 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eiz-iE-ySV" id="mtg-OK-k8J">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PQD-E3-knN">
-                                            <rect key="frame" x="15" y="12" width="665" height="19.5"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="Eiz-iE-ySV" id="psG-a3-O0A"/>
-                                            </connections>
-                                        </webView>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="a8H-Wv-Q95">
-                                            <rect key="frame" x="691" y="12" width="51" height="31"/>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="a8H-Wv-Q95">
+                                            <rect key="frame" x="691" y="0.0" width="51" height="31"/>
                                             <connections>
                                                 <action selector="switched:" destination="Eiz-iE-ySV" eventType="valueChanged" id="OQt-JZ-8PY"/>
                                             </connections>
@@ -192,16 +185,10 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="a8H-Wv-Q95" secondAttribute="trailing" constant="20" id="0Gz-lZ-Uew"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="PQD-E3-knN" secondAttribute="trailing" constant="80" id="DcI-h2-VfY"/>
-                                        <constraint firstItem="PQD-E3-knN" firstAttribute="top" secondItem="a8H-Wv-Q95" secondAttribute="top" id="KXv-9H-HuI"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="PQD-E3-knN" secondAttribute="bottom" priority="750" constant="4" id="WDS-p2-Kw8"/>
-                                        <constraint firstItem="PQD-E3-knN" firstAttribute="top" secondItem="mtg-OK-k8J" secondAttribute="topMargin" constant="4" id="afE-YK-kmg"/>
-                                        <constraint firstItem="PQD-E3-knN" firstAttribute="leading" secondItem="mtg-OK-k8J" secondAttribute="leadingMargin" constant="7" id="q29-rX-yAl"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="switcher" destination="a8H-Wv-Q95" id="IM1-w0-yfe"/>
-                                    <outlet property="webView" destination="PQD-E3-knN" id="BMv-4K-1Rg"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FormDescriptionCell" id="JK5-w6-1JX" userLabel="Description Cell" customClass="FormDescriptionCell">
@@ -209,25 +196,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JK5-w6-1JX" id="UHi-1p-ceH">
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96g-ox-jl8">
-                                            <rect key="frame" x="13" y="12" width="727" height="19.5"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <connections>
-                                                <outlet property="delegate" destination="JK5-w6-1JX" id="YR8-h7-JWp"/>
-                                            </connections>
-                                        </webView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="96g-ox-jl8" firstAttribute="leading" secondItem="UHi-1p-ceH" secondAttribute="leadingMargin" constant="5" id="93o-YA-RV1"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="96g-ox-jl8" secondAttribute="trailing" constant="20" id="E3z-oU-Y5u"/>
-                                        <constraint firstItem="96g-ox-jl8" firstAttribute="top" secondItem="UHi-1p-ceH" secondAttribute="topMargin" constant="4" id="orV-s0-GMj"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="96g-ox-jl8" secondAttribute="bottom" priority="750" constant="4" id="uiA-mh-eH1"/>
-                                    </constraints>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="webView" destination="96g-ox-jl8" id="HTO-IA-jb6"/>
-                                </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextFieldFormItemCell" rowHeight="103" id="kyb-lv-4qM" userLabel="TextFieldCell" customClass="TextFieldFormItemCell">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>

@@ -29,8 +29,6 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
     self.navigationItem.leftBarButtonItem.title = [self.dataSource cancelTitle];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(agreeValueChanged:) name:@"UserAgreeChangedNotification" object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellHeightChanged:) name:@"CellHeightChangedNotification" object:nil];
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cellContentChanged:) name:@"CellContentChangedNotification" object:nil];
 
 }
@@ -45,13 +43,25 @@ static NSString * formItemOptionsSegue = @"FormItemOptionsSegue";
 }
 
 - (void)cellContentChanged:(NSNotification *)notification {
-    [self.tableView reloadData];
     NSLog(@"cellContentChanged");
-}
-
-- (void)cellHeightChanged:(NSNotification *)notification {
     [self.tableView reloadData];
-    NSLog(@"cellHeightChanged");
+    return;
+    NSDictionary * dict = [notification userInfo];
+    UITableViewCell * cell = dict[@"Cell"];
+    if (cell) {
+        NSIndexPath * path = [self.tableView indexPathForCell:cell];
+        if (path) {
+            [self.tableView beginUpdates];
+            [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationMiddle];
+            [self.tableView endUpdates];
+        } else {
+            [self.tableView reloadData];
+        }
+    } else {
+        [self.tableView reloadData];
+    }
+    
+    NSLog(@"cellContentChanged");
 }
 
 - (void)agreeValueChanged:(NSNotification *)notification {

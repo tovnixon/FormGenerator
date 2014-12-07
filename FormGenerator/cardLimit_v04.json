@@ -26,7 +26,103 @@
                             "description":"Включить автоматическое пополнениеВключить автоматическое пополнениеВключить автоматическое пополнение Включить автоматическое пополнение end",
                             "defaultValue": "7500 EUR"
                             },
+
                             {
+                            "name":"customerName",
+                            "type":"string",
+                            "label":"Клиент",
+                            "isReadOnly":true,
+                            "defaultValue": "TEST CUSTOMER LLC"
+                            },
+                            {
+                            "name":"overdraftScored",
+                            "type":"text",
+                            "label":"Предлагаемый овердрафт овердрафтович овердрыщенко",
+                            "isReadOnly":true,
+                            "description":"Включить автоматическое пополнениеВключить автоматическое пополнениеВключить автоматическое пополнение Включить автоматическое пополнение end",
+                            "defaultValue": "7500 EUR"
+                            },
+
+                            {
+                            "name":"customerName",
+                            "type":"string",
+                            "label":"Клиент",
+                            "isReadOnly":true,
+                            "defaultValue": "TEST CUSTOMER LLC"
+                            },
+                            {
+                            "name":"overdraftScored",
+                            "type":"text",
+                            "label":"Предлагаемый овердрафт овердрафтович овердрыщенко",
+                            "isReadOnly":true,
+                            "description":"Включить автоматическое пополнениеВключить автоматическое пополнениеВключить автоматическое пополнение Включить автоматическое пополнение end",
+                            "defaultValue": "7500 EUR"
+                            },
+
+                            {
+                            "name":"customerName",
+                            "type":"string",
+                            "label":"Клиент",
+                            "isReadOnly":true,
+                            "defaultValue": "TEST CUSTOMER LLC"
+                            },
+                            {
+                            "name":"overdraftScored",
+                            "type":"text",
+                            "label":"Предлагаемый овердрафт овердрафтович овердрыщенко",
+                            "isReadOnly":true,
+                            "description":"Включить автоматическое пополнениеВключить автоматическое пополнениеВключить автоматическое пополнение Включить автоматическое пополнение end",
+                            "defaultValue": "7500 EUR"
+                            },
+
+                            {
+                            "name":"customerName",
+                            "type":"string",
+                            "label":"Клиент",
+                            "isReadOnly":true,
+                            "defaultValue": "TEST CUSTOMER LLC"
+                            },
+                            {
+                            "name":"overdraftScored",
+                            "type":"text",
+                            "label":"Предлагаемый овердрафт овердрафтович овердрыщенко",
+                            "isReadOnly":true,
+                            "description":"Включить автоматическое пополнениеВключить автоматическое пополнениеВключить автоматическое пополнение Включить автоматическое пополнение end",
+                            "defaultValue": "7500 EUR"
+                            },
+
+                            {
+                            "name":"customerName",
+                            "type":"string",
+                            "label":"Клиент",
+                            "isReadOnly":true,
+                            "defaultValue": "TEST CUSTOMER LLC"
+                            },
+                            {
+                            "name":"overdraftScored",
+                            "type":"text",
+                            "label":"Предлагаемый овердрафт овердрафтович овердрыщенко",
+                            "isReadOnly":true,
+                            "description":"Включить автоматическое пополнениеВключить автоматическое пополнениеВключить автоматическое пополнение Включить автоматическое пополнение end",
+                            "defaultValue": "7500 EUR"
+                            },
+
+                            {
+                            "name":"customerName",
+                            "type":"string",
+                            "label":"Клиент",
+                            "isReadOnly":true,
+                            "defaultValue": "TEST CUSTOMER LLC"
+                            },
+                            {
+                            "name":"overdraftScored",
+                            "type":"text",
+                            "label":"Предлагаемый овердрафт овердрафтович овердрыщенко",
+                            "isReadOnly":true,
+                            "description":"Включить автоматическое пополнениеВключить автоматическое пополнениеВключить автоматическое пополнение Включить автоматическое пополнение end",
+                            "defaultValue": "7500 EUR"
+                            },
+{
                             "name":"autoReplenishment",
                             "type":"group",
                             "label":"Постоянное пополнение карточного счёта",

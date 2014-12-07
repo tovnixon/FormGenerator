@@ -10,6 +10,5 @@
 
 @interface FormDescriptionCell : AbstractFormItemCell <UIWebViewDelegate>
 
-@property (nonatomic, weak) IBOutlet UIWebView * webView;
 @property CGFloat height;
 @end

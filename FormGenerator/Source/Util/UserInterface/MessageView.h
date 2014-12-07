@@ -16,6 +16,7 @@ typedef void (^HidingCompletionBlock)();
 @property (nonatomic, weak) IBOutlet id <MessageViewDelegate> delegate;
 
 - (void)updateWithMessage:(NSString *)aMessage;
+- (void)silentShow;
 - (void)show;
 - (void)hide;
 - (void)silentHide;

@@ -19,16 +19,6 @@
     
     self.bindingKey = [aFormItem bindingKey];
     self.dataSourceKey = [aFormItem key];
-    NSString *scriptionHTML = [NSString stringWithFormat:@"<html> \n"
-                     "<head> \n"
-                     "<style type=\"text/css\"> \n"
-                     "body {font-family: \"%@\"; font-size: %@;}\n"
-                     "</style> \n"
-                     "</head> \n"
-                     "<body>%@<br><br></body> \n"
-                     "</html>", @"HelveticaNeue-Light", [NSNumber numberWithInt:22], aFormItem.label];
-    [self.webView loadHTMLString:scriptionHTML baseURL:nil];
-    self.webView.scrollView.scrollEnabled = NO;
 }
 
 - (IBAction)switched:(id)sender {
@@ -40,23 +30,9 @@
     return @{kValidationKeyKey : [self bindingKey], kValidationValueKey : value};
 }
 
-- (BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
-    if ( inType == UIWebViewNavigationTypeLinkClicked ) {
-        [[UIApplication sharedApplication] openURL:[inRequest URL]];
-        return NO;
-    }
-    
-    return YES;
-}
-
 - (CGSize)calculateSize:(CGSize)parentSize {
     return CGSizeMake(1, 120);
-    return CGSizeMake(1, _singleLoad ? self.height : 120);
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)aWebView {
-    _singleLoad = YES;
-    self.height = self.webView.scrollView.contentSize.height;
-}
 
 @end

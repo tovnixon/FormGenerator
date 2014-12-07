@@ -37,10 +37,10 @@
 //
     BOOL isValid = [aFormItem isValid];
     self.showInfoView = aFormItem.displayErrorMessage;
-    
-    self.cnstrTitle2Left.constant = isValid ? cnstrTitle2LeftDefault : cnstrTitle2LeftOffset;
-    self.showInfoView ? [self.infoView show] : [self.infoView silentHide];
 
+    self.cnstrTitle2Left.constant = isValid ? cnstrTitle2LeftDefault : cnstrTitle2LeftOffset;
+//    self.showInfoView ? [self.infoView show] : [self.infoView silentHide];
+    self.showInfoView ? [self.infoView silentShow] : [self.infoView silentHide];
     [self.infoView updateWithMessage:aFormItem.errorMessage];
     self.validationSign.hidden = isValid;
     
@@ -83,13 +83,6 @@
 #pragma mark - Actions
 - (IBAction)helpInfo:(id)sender {
 
-}
-
-- (void)forceLayout {
-    [self.contentView setNeedsUpdateConstraints];
-    [self.contentView setNeedsLayout];
-    [self.contentView layoutIfNeeded];
-    
 }
 
 @end
