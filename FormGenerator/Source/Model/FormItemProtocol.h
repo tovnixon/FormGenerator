@@ -29,6 +29,7 @@ static NSString * FormItemTypeAgree = @"agreeText";
 
 //model - comes from initialization
 @required
+@property (nonatomic, strong) NSNumber * level;
 @property (nonatomic, strong) NSString * parentKey;
 @property (nonatomic, strong) NSString * key;
 @property (nonatomic, copy) NSString * pageId;

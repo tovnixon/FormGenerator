@@ -37,6 +37,7 @@
 @synthesize storedValues;
 @synthesize shouldValidate;
 @synthesize children;
+@synthesize level;
 
 - (id)init {
     self = [super init];
@@ -63,6 +64,10 @@
 }
 
 - (instancetype)initWithType:(NSString *)aType name:(NSString *)aName value:(NSString *)aValue description:(NSString *)aDescription pageId:(NSString *)aPageId {
+    return [self initWithType:aType name:aName value:aValue description:aDescription pageId:aPageId level:nil];
+}
+
+- (instancetype)initWithType:(NSString *)aType name:(NSString *)aName value:(NSString *)aValue description:(NSString *)aDescription pageId:(NSString *)aPageId level:(NSNumber *)aLevel {
 
     self = [self init];
     if (self) {
@@ -70,6 +75,8 @@
         [self setValue:aValue forKey:@"label"];
         [self setValue:aDescription forKey:@"itemDescription"];
         [self setValue:aType forKey:@"type"];
+        if (!aLevel) aLevel = [NSNumber numberWithInteger:0];
+        [self setValue:aLevel forKey:@"level"];
         if (aPageId)
             [self setValue:aPageId forKey:@"pageId"];
         [self createBindingKey];

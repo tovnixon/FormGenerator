@@ -62,46 +62,6 @@
                                                 ]
                                       },
                                       {
-                                      "name":"autoReplenishment4",
-                                      "type":"group",
-                                      "label":"Постоянное пополнение карточного счёта",
-                                      "isCollapsable":true,
-                                      "isCollapsed":true,
-                                      "fields":[
-                                                {
-                                                "name":"enableAutoReplenishmentBox",
-                                                "label":"Включить автоматическое пополнение",
-                                                "type":"checkbox",
-                                                "defaultValue":false
-                                                },
-                                                {
-                                                "name":"autoReplenishment5",
-                                                "type":"group",
-                                                "label":"Постоянное пополнение карточного счёта",
-                                                "isCollapsable":true,
-                                                "isCollapsed":true,
-                                                "fields":[
-                                                          {
-                                                          "name":"replenishDay2",
-                                                          "type":"radio",
-                                                          "label":"Платежи на карточный счёт производить",
-                                                          "enums":["first woking day","last working day"],
-                                                          "labels":["в первый рабочий день месяца","в последний рабочий день месяца"]
-                                                          }
-                                                          ]
-                                                },
-
-                                                {
-                                                "name":"replenishDay2",
-                                                "type":"radio",
-                                                "label":"Платежи на карточный счёт производить",
-                                                "enums":["first woking day","last working day"],
-                                                "labels":["в первый рабочий день месяца","в последний рабочий день месяца"]
-                                                }
-                                                ]
-                                      },
-
-                                      {
                                       "name":"replenishDay",
                                       "type":"radio",
                                       "label":"Платежи на карточный счёт производить",

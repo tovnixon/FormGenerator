@@ -14,6 +14,7 @@
 @interface BaseFormItem()
 @property (nonatomic, strong) NSMutableArray * maping;
 
+- (instancetype)initWithType:(NSString *)aType name:(NSString *)aName value:(NSString *)aValue description:(NSString *)aDescription pageId:(NSString *)aPageId level:(NSNumber *)aLevel;
 - (instancetype)initWithType:(NSString *)aType name:(NSString *)aName value:(NSString *)aValue description:(NSString *)aDescription pageId:(NSString *)aPageId;
 - (void)serializeFromDictionary:(NSDictionary *)dictionary;
 - (void)createBindingKey;

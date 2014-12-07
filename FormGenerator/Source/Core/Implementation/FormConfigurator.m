@@ -37,7 +37,7 @@
         [self.items addObject:@[descriptionItem]];
     }
     NSMutableArray * destinationItems = [@[] mutableCopy];
-    [self linearItemsFromArray:self.form.items toArray:destinationItems parentKey:nil];
+    [self linearItemsFromArray:self.form.items toArray:destinationItems parentKey:nil level:0];
     [self.items addObject:[NSArray arrayWithArray:destinationItems]];
     
     if (self.form.agreeText) {
@@ -46,88 +46,48 @@
     }
 }
 
-- (void)linearItemsFromArray:(NSArray *)source toArray:(NSMutableArray *)destination parentKey:(NSString *)parentKey{
+- (void)linearItemsFromArray:(NSArray *)source toArray:(NSMutableArray *)destination parentKey:(NSString *)parentKey level:(int)level {
     for (id <FormItemProtocol> item in source) {
         if ([item conformsToProtocol:@protocol(GroupFormItemProtocol)]) {
-            GroupFormItem * groupHeader = [[GroupFormItem alloc] initWithType:item.type name:item.name value:item.label description:item.itemDescription pageId:nil];
+            GroupFormItem * groupHeader = [[GroupFormItem alloc] initWithType:item.type name:item.name value:item.label description:item.itemDescription pageId:nil level:[NSNumber numberWithInt:level]];
             groupHeader.parentKey = parentKey;
-            [groupHeader setSubItems:[(GroupFormItem *)item subItems]];
             [destination addObject:groupHeader];
-            
-            [self linearItemsFromArray:[(GroupFormItem *)item subItems]  toArray:destination parentKey:groupHeader.key];
+            [self linearItemsFromArray:[(GroupFormItem *)item subItems]  toArray:destination parentKey:groupHeader.key level:level + 1];
         } else {
             if (parentKey) {
                 item.parentKey = parentKey;
+                item.level = [NSNumber numberWithInt:level];
             }
             [destination addObject:item];
         }
     }
 }
 
-- (NSArray *)structuredItemsFrom:(NSArray *)linearItems {
-    NSMutableArray * result = [NSMutableArray new];
-    for (id<FormItemProtocol> item in linearItems) {
-        if ([item respondsToSelector:@selector(subItems)]) {
-            NSArray * linearSubItems = [self itemsWithParent:[item key] fromArray:linearItems];
-            if ([self array:linearSubItems containsItemsResponded:@selector(subItems)]) {
-                [self structuredItemsFrom:linearSubItems];
-            } else {
+- (void)structureItemsFromArray:(NSArray *)source toArray:(NSMutableArray *)destination level:(int)level parent:(NSString *)parentKey {
+    for (id <FormItemProtocol> item in source) {
+        if ([item.level intValue] == level) {
+            if (!parentKey)
+                [destination addObject:item];
+            else
+                if ([item.parentKey isEqualToString:parentKey])
+                    [destination addObject:item];
                 
-                if (linearSubItems.count) {
-                    //very deep level of tree
-                    [(id<GroupFormItemProtocol>)item setSubItems:linearSubItems];
-                    
-                }
-                //remove linear sub items and linearitems
+            if ([item respondsToSelector:@selector(subItems)]) {
+                NSMutableArray * subItems = [@[] mutableCopy];
+                [self structureItemsFromArray:source toArray:subItems level:level + 1 parent:item.key];
+                [(GroupFormItem *)item setSubItems:subItems];
             }
-        } else {
-            [result addObject:item];
         }
     }
-    return [NSArray arrayWithArray:result];
 }
-
-- (BOOL)array:(NSArray *)array containsItemsResponded:(SEL)selector {
-    for (id <FormItemProtocol> item in array) {
-        if ([item respondsToSelector:selector])
-            return YES;
-    }
-    return NO;
-}
-
-- (id<FormItemProtocol>)itemByKey:(NSString *)key fromArray:(NSArray *)array {
-    for (id<FormItemProtocol> item in array) {
-        if ([item.key isEqualToString:key])
-            return item;
-    }
-    return nil;
-
-}
-- (NSArray *)itemsWithParent:(NSString *)parentKey fromArray:(NSArray *)array {
-    NSMutableArray * result = [@[] mutableCopy];
-    for (id<FormItemProtocol> item in array) {
-        if ([item.parentKey isEqualToString:parentKey]) {
-            [result addObject:item];
-        }
-    }
-    return result;
-}
-
 - (NSString *)xmlStringWithItems:(NSArray *)linearItems {
     NSMutableArray * structuredItems = [@[] mutableCopy];
-
-    //enumerate sections
-    
-    //remove duplication
     for (NSArray * section in linearItems) {
-        for (id<FormItemProtocol> item in section) {
-            if (![item hasParent])
-                [structuredItems addObject:item];
-        }
+        [self structureItemsFromArray:section toArray:structuredItems level:0 parent:nil];
     }
-
     id <FormProtocol> newForm = [[BaseForm alloc] initWithForm:self.form withItems:structuredItems];
     NSString * result = [newForm xmlString];
+//http://codebeautify.org/xmlviewer#
     return result;
 }
 
